@@ -1,0 +1,116 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Simplequiz module upgrade code
+ *
+ * @package    mod_simplequiz2
+ * @copyright 2023 Ministère de l'Éducation nationale français
+ * @author     Céline Hernandez
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/**
+ * Plugin upgrade function
+ *
+ * @param int $oldversion
+ * @return void
+ * @throws ddl_exception
+ * @throws ddl_table_missing_exception
+ * @throws downgrade_exception
+ * @throws upgrade_exception
+ */
+function xmldb_simplequiz2_upgrade($oldversion) {
+    global $DB;
+
+    $dbman = $DB->get_manager();
+
+    // Create table for simplequiz user attempt info.
+    if ($oldversion < 2023010500) {
+
+        $targettablename = 'simplequiz2_attempts';
+        if ($dbman->table_exists($targettablename)) {
+            $table = new xmldb_table($targettablename);
+            $dbman->drop_table($table);
+        }
+
+        $table = new xmldb_table('simplequiz2_attempts');
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('cmid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('cntattempt', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timefirstattempt', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timelastattempt', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('completed', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, null);
+
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, array('cmid'), 'course_modules', ['id']);
+        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, array('userid'), 'user', ['id']);
+
+        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, array(
+            'cmid',
+            'userid'
+        ));
+
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, 2023010500, 'mod', 'simplequiz2');
+    }
+
+    // Create table to store attempts data.
+    if ($oldversion < 2023010501) {
+
+        $table = new xmldb_table('simplequiz2_attempt_data');
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('cmid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('answers', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, array('cmid'), 'course_modules', ['id']);
+        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, array('userid'), 'user', ['id']);
+
+        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, array(
+            'cmid',
+            'userid'
+        ));
+
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, 2023010501, 'mod', 'simplequiz2');
+    }
+
+    // Add field for attempts number completion.
+    if ($oldversion < 2023011000) {
+
+        $table = new xmldb_table('simplequiz2');
+        $field = new xmldb_field('completionminattempts', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, 'timemodified');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_plugin_savepoint(true, 2023011000, 'mod', 'simplequiz2');
+    }
+
+    return true;
+}
