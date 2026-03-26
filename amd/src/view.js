@@ -60,6 +60,15 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             this.courseModuleId = courseModuleId;
             this.attemptId = attemptId;
 
+            // Preload language strings before any click handler can use M.util.get_string().
+            const modStrings = this.langStrings.map(l => {
+                return {
+                    key: l,
+                    component: 'mod_simplequiz2'
+                };
+            });
+            await str.get_strings(modStrings);
+
             // Init answer selection
             let answerButtons = document.querySelectorAll('.question-container .answer-container');
             answerButtons.forEach(function(answerButton) {
@@ -88,23 +97,14 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             });
 
             // Init show results button
-            document.querySelector('#simplequiz2_container button.show-results').onclick = function() {
+            document.querySelector('#simplequiz_container button.show-results').onclick = function() {
                 that.updateResultspage();
             };
 
             // Init restart button
-            document.querySelector('#simplequiz2_container button.restart').onclick = function() {
+            document.querySelector('#simplequiz_container button.restart').onclick = function() {
                 location.reload();
             };
-
-            // Get lang strings.
-            const modStrings = this.langStrings.map(l => {
-                return {
-                    key: l,
-                    component: 'mod_simplequiz2'
-                };
-            });
-            await str.get_strings(modStrings);
 
             // Fill aria label for the first question.
             that.setAriaLabel(0);
@@ -202,12 +202,12 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             let nextquestion = document.querySelector('.question-container[data-questionid="' + (parseInt(questionId) + 1) + '"]');
             if (!nextquestion) {
                 // Is last question, display restart button
-                document.querySelector('#simplequiz2_container button.show-results').style.display = "block";
+                document.querySelector('#simplequiz_container button.show-results').style.display = "block";
                 const restartLabel = M.util.get_string('aria_restart', 'mod_simplequiz2', {status});
-                document.querySelector('#simplequiz2_container button.show-results').setAttribute(
+                document.querySelector('#simplequiz_container button.show-results').setAttribute(
                     'aria-label', restartLabel
                 );
-                document.querySelector('#simplequiz2_container button.show-results').focus();
+                document.querySelector('#simplequiz_container button.show-results').focus();
             } else {
                 // Display next question button
                 const nextBtn = document.querySelector(
@@ -265,7 +265,10 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
                 score: Math.trunc(data.attemptgrade)
             });
             $.when(attemptScoreStr).done(function(localizedString) {
-                document.querySelector('#simplequiz2-result .current-score').innerHTML = localizedString;
+                const currentScore = document.querySelector('#simplequiz-result .current-score');
+                if (currentScore) {
+                    currentScore.innerHTML = localizedString;
+                }
             });
 
             // Prepare and print best score lang str.
@@ -273,20 +276,32 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
                 score: Math.trunc(data.bestscore)
             });
             $.when(bestScoreStr).done(function(localizedString) {
-                document.querySelector('#simplequiz2-result .best-score').innerHTML = localizedString;
+                const bestScore = document.querySelector('#simplequiz-result .best-score');
+                if (bestScore) {
+                    bestScore.innerHTML = localizedString;
+                }
             });
 
             // Hide fireworks if result is under 100%.
             if (data.attemptgrade < 100) {
-                document.querySelectorAll('#simplequiz2-result .fireworks').forEach(function(elem) {
+                document.querySelectorAll('#simplequiz-result .fireworks').forEach(function(elem) {
                     elem.style.visibility = 'hidden';
                 });
             }
 
             // Toggle game/results div.
-            document.querySelector('#simplequiz2-questions').style.display = "none";
-            document.querySelector('#simplequiz2-result').style.display = "flex";
-            document.querySelector('#simplequiz2-result .current-score').focus();
+            const questionsContainer = document.querySelector('#simplequiz-questions');
+            const resultContainer = document.querySelector('#simplequiz-result');
+            const currentScore = document.querySelector('#simplequiz-result .current-score');
+            if (questionsContainer) {
+                questionsContainer.style.display = "none";
+            }
+            if (resultContainer) {
+                resultContainer.style.display = "flex";
+            }
+            if (currentScore) {
+                currentScore.focus();
+            }
 
         },
 
