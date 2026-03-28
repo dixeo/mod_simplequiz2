@@ -33,7 +33,6 @@ use stdClass;
  * Thin wrapper around $DB for simplequiz2 persistence.
  */
 class database_interface {
-
     /**
      * Moodle database manager.
      *

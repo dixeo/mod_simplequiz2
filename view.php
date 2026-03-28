@@ -52,12 +52,9 @@ $attemptid = $simplequiz->create_attempt($USER->id);
 echo $OUTPUT->header();
 
 if (!$decodeddata) {
-
     // Print message if there is no question.
     echo "<p>" . get_string('no-questions', 'simplequiz2') . "</p>";
-
 } else {
-
     $converteddata = simplequiz2_rewrite_pluginfile_urls($decodeddata, $cmid);
 
     echo $renderer->student_view($simplequiz, $converteddata);

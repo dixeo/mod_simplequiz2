@@ -93,20 +93,25 @@ function simplequiz2_reset_userdata($data) {
 
     // Delete attempts.
     if (!empty($data->reset_simplequiz2_attempts)) {
-
         $module = $DB->get_record('modules', ['name' => 'simplequiz2']);
 
-        $DB->delete_records_select('simplequiz2_attempts',
-            'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)', [
+        $DB->delete_records_select(
+            'simplequiz2_attempts',
+            'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)',
+            [
                 $data->courseid,
                 $module->id,
-            ]);
+            ]
+        );
 
-        $DB->delete_records_select('simplequiz2_attempt_data',
-            'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)', [
+        $DB->delete_records_select(
+            'simplequiz2_attempt_data',
+            'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)',
+            [
                 $data->courseid,
                 $module->id,
-            ]);
+            ]
+        );
 
         $status[] = [
             'component' => $componentstr,
@@ -348,8 +353,16 @@ function simplequiz2_grade_item_delete($simplequiz) {
     global $CFG;
     require_once($CFG->libdir . '/gradelib.php');
 
-    return grade_update('mod/simplequiz2', $simplequiz->course, 'mod', 'simplequiz2', $simplequiz->id, 0, null,
-        ['deleted' => 1]);
+    return grade_update(
+        'mod/simplequiz2',
+        $simplequiz->course,
+        'mod',
+        'simplequiz2',
+        $simplequiz->id,
+        0,
+        null,
+        ['deleted' => 1]
+    );
 }
 
 /**
@@ -360,8 +373,10 @@ function simplequiz2_grade_item_delete($simplequiz) {
  */
 function mod_simplequiz2_get_completion_active_rule_descriptions($cm) {
     // Values will be present in cm_info, and we assume these are up to date.
-    if (empty($cm->customdata['customcompletionrules'])
-        || $cm->completion != COMPLETION_TRACKING_AUTOMATIC) {
+    if (
+        empty($cm->customdata['customcompletionrules'])
+        || $cm->completion != COMPLETION_TRACKING_AUTOMATIC
+    ) {
         return [];
     }
 
@@ -460,7 +475,6 @@ function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $force
 
     // Send the file.
     send_stored_file($file, null, 0, $forcedownload, $options);
-
 }
 
 /**
@@ -478,7 +492,6 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
 
     // Loop on questions with their answers data.
     for ($i = 0; $i < SIMPLE_QUIZ2_MAX_QUESTION_NB; $i++) {
-
         $fieldname = 'questions' . $i;
         if (!property_exists($data, $fieldname)) {
             continue;
@@ -502,7 +515,6 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
         // Prepare answers data (convert text and exlude empty answer).
         $answeritemid = 1;
         foreach ($questionrawdata['answers'] as $order => $answerdata) {
-
             if ($answerdata['text'] == '') {
                 continue;
             }
@@ -519,13 +531,11 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
 
         // Add question at correct order.
         $questions[$questionrawdata['questionorder']] = $question;
-
     }
 
     // Fix questions order in the array and return it.
     ksort($questions);
     return $questions;
-
 }
 
 /**
@@ -572,23 +582,35 @@ function simplequiz2_rewrite_pluginfile_urls($questions, int $cmid) {
         $questionitemid = $order + 1;
 
         // Question text.
-        $questiontext = file_rewrite_pluginfile_urls($questiondata->text, 'pluginfile.php', $context->id, 'mod_simplequiz2', 'data',
-            $questionitemid, $options);
+        $questiontext = file_rewrite_pluginfile_urls(
+            $questiondata->text,
+            'pluginfile.php',
+            $context->id,
+            'mod_simplequiz2',
+            'data',
+            $questionitemid,
+            $options
+        );
         $questiontext = trim(format_text($questiontext, FORMAT_HTML, $options, null));
 
         $questions[$order]->text = $questiontext;
 
         // Answers.
         foreach ($questiondata->answers as $answerorder => $answerdata) {
-
             $answeritemid = $questionitemid . ($answerorder + 1);
 
-            $answertext = file_rewrite_pluginfile_urls($answerdata->text, 'pluginfile.php', $context->id, 'mod_simplequiz2', 'data',
-                $answeritemid, $options);
+            $answertext = file_rewrite_pluginfile_urls(
+                $answerdata->text,
+                'pluginfile.php',
+                $context->id,
+                'mod_simplequiz2',
+                'data',
+                $answeritemid,
+                $options
+            );
             $answertext = trim(format_text($answertext, FORMAT_HTML, $options, null));
 
             $questions[$order]->answers[$answerorder]->text = $answertext;
-
         }
     }
 
@@ -626,8 +648,10 @@ function simplequiz2_extend_settings_navigation(settings_navigation $settingsnav
 
         // Multichoice question need more than one response to works.
         if (count($questions) > 0) {
-            $convertnode = navigation_node::create(get_string('converttoquiz', 'simplequiz2'),
-                new moodle_url('/mod/simplequiz2/convert.php', ['cmid' => $cmcontext->instanceid]));
+            $convertnode = navigation_node::create(
+                get_string('converttoquiz', 'simplequiz2'),
+                new moodle_url('/mod/simplequiz2/convert.php', ['cmid' => $cmcontext->instanceid])
+            );
             $simplequiznode->add_node($convertnode);
         }
     }

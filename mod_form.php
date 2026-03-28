@@ -32,7 +32,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/classes/database_interface.php');
  * Module instance settings form
  */
 class mod_simplequiz2_mod_form extends moodleform_mod {
-
     /**
      * @var \mod_simplequiz2\database_interface
      */
@@ -120,7 +119,6 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
         $lastquestionwithcontent = 'question_header_0';
 
         for ($i = 0; $i < SIMPLE_QUIZ2_MAX_QUESTION_NB; $i++) {
-
             // Check if the question already has content.
             $hascontent   = false;
             $questiontext = '';
@@ -163,7 +161,8 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
             // Add question text container.
             $classes = 'question-text-editor ';
             $classes .= $hascontent ? ' has-content ' : '';
-            $mform->addElement('editor',
+            $mform->addElement(
+                'editor',
                 "questions$i" . "[text]",
                 get_string('questiontext', 'simplequiz2'),
                 [
@@ -188,7 +187,6 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
 
             // Add answers containers.
             for ($j = 0; $j < SIMPLE_QUIZ2_MAX_ANSWER_NB; $j++) {
-
                 // Define answer text.
                 $mform->addElement(
                     'editor',
@@ -211,16 +209,21 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
                 }
 
                 // Define if the answer is correct or not.
-                $answerelements[] = $mform->addElement('advcheckbox', "questions$i" . "[correctanswers][$j]",
-                    get_string('iscorrectanswer', 'simplequiz2'), null, ['data-answerid' => $j], [
+                $answerelements[] = $mform->addElement(
+                    'advcheckbox',
+                    "questions$i" . "[correctanswers][$j]",
+                    get_string('iscorrectanswer', 'simplequiz2'),
+                    null,
+                    ['data-answerid' => $j],
+                    [
                         0,
                         1,
-                    ]);
+                    ]
+                );
                 $mform->setType("questions$i" . "[correctanswers][$j]", PARAM_BOOL);
                 if (isset($questionsdata[$i]->answers[$j])) {
                     $mform->setDefault("questions$i" . "[correctanswers][$j]", $questionsdata[$i]->answers[$j]->iscorrect);
                 }
-
             }
 
             // Add delete/add question button.
@@ -243,7 +246,6 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
 
         // Open last header with content.
         $mform->setExpanded($lastquestionwithcontent, true);
-
     }
 
     /**
@@ -263,7 +265,6 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
         if ($this->_instance == '') {
             $defaultvalues['completionminattemptsenabled'] = 1;
         }
-
     }
 
     /**
@@ -276,12 +277,21 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
 
         // Number of failed attempts before the activity is completed.
         $group   = [];
-        $group[] =& $mform->createElement('checkbox', 'completionminattemptsenabled', '',
-            get_string('completionminattempts', 'simplequiz2'));
+        $group[] =& $mform->createElement(
+            'checkbox',
+            'completionminattemptsenabled',
+            '',
+            get_string('completionminattempts', 'simplequiz2')
+        );
         $group[] =& $mform->createElement('text', 'completionminattempts', '', ['size' => 3]);
         $mform->setType('completionminattempts', PARAM_INT);
-        $mform->addGroup($group, 'completionminattemptsgroup', get_string('completionminattemptsgroup', 'simplequiz2'), [' '],
-            false);
+        $mform->addGroup(
+            $group,
+            'completionminattemptsgroup',
+            get_string('completionminattemptsgroup', 'simplequiz2'),
+            [' '],
+            false
+        );
 
         $mform->disabledIf('completionminattempts', 'completionminattemptsenabled', 'notchecked');
 
@@ -365,5 +375,4 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
 
         return parent::validation($data, $files);
     }
-
 }

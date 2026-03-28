@@ -25,21 +25,20 @@
 namespace mod_simplequiz2\privacy;
 
 use core_privacy\local\metadata\collection;
+use core_privacy\local\metadata\provider as privacy_metadata_provider;
 use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\contextlist;
+use core_privacy\local\request\core_userlist_provider;
 use core_privacy\local\request\helper;
+use core_privacy\local\request\plugin\provider as privacy_plugin_provider;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 
 /**
  * Privacy provider for SimpleQuiz (attempts and per-question answer payloads).
  */
-class provider implements
-        \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\plugin\provider,
-        \core_privacy\local\request\core_userlist_provider {
-
+class provider implements core_userlist_provider, privacy_metadata_provider, privacy_plugin_provider {
     /**
      * Describe stored personal data for the privacy API.
      *
@@ -282,7 +281,7 @@ class provider implements
             return;
         }
 
-        list($insql, $inparams) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+        [$insql, $inparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $params = array_merge(['cmid' => $cm->id], $inparams);
 
         $DB->delete_records_select(

@@ -33,21 +33,13 @@
 
     Example context (json):
     {
-        "order" : 1,
-        "text" : "<p>Question 2 : Question text</p>",
-        "answers" : [
-            {
-                "order" : 0,
-                "text" : "First answer",
-            },
-            {
-                "order" : 2,
-                "text" : "Third answer",
-            },
-            {
-                "order" : 1,
-                "text" : "Third answer",
-            }
+        "order": 1,
+        "rank": 1,
+        "text": "<p>Question text</p>",
+        "islast": false,
+        "answers": [
+            {"order": 0, "text": "First answer"},
+            {"order": 1, "text": "Second answer"}
         ]
     }
 }}
@@ -58,8 +50,8 @@
     </div>
     <div class="answers">
         {{#answers}}
-            <button class="answer-container" data-answerid="{{order}}" tabindex="0">
-                <div class="answer-text">{{{text}}}</div>
+            <button type="button" class="answer-container" data-answerid="{{order}}" tabindex="0">
+                <span class="answer-text">{{{text}}}</span>
             </button>
         {{/answers}}
     </div>

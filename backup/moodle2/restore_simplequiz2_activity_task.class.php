@@ -32,7 +32,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/backup/moodle2/restore_simplequiz
  * complete restore of the activity
  */
 class restore_simplequiz2_activity_task extends restore_activity_task {
-
     /**
      * Define (add) particular settings this activity can have.
      */
@@ -69,7 +68,5 @@ class restore_simplequiz2_activity_task extends restore_activity_task {
         $rules[] = new restore_decode_rule('SIMPLEQUIZ2INDEX', '/mod/simplequiz2/index.php?id=$1', 'course');
 
         return $rules;
-
     }
-
 }

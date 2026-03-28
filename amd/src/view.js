@@ -84,7 +84,7 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             checkAnswerButtons.forEach(function(checkAnswerButton) {
                 checkAnswerButton.onclick = function() {
                     let questionId = this.dataset.questionid;
-                    that.check_answers(questionId);
+                    that.checkAnswers(questionId);
                 };
             });
 
@@ -147,7 +147,7 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
          * @param {string} questionId Question id
          * @returns {Promise<void>}
          */
-        check_answers: async function(questionId) {
+        checkAnswers: async function(questionId) {
 
             // Get selected answers
             const selector = '.question-container[data-questionid="' + questionId + '"] .answer-container.selected';
@@ -423,9 +423,8 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
                         location.href = M.cfg.wwwroot;
                     }, 5000);
                 });
-            }
-            // Show all other errors response code.
-            else if (response.ok === false) {
+            } else if (response.ok === false) {
+                // Show all other error response codes.
                 ModalFactory.create({
                     title: `Error ${response.status}`,
                     body: "<p>Check browser console.</p>"

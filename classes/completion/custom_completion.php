@@ -36,7 +36,6 @@ use mod_simplequiz2\simplequiz;
  * Custom completion rules for simplequiz2 (e.g. minimum attempts).
  */
 class custom_completion extends activity_custom_completion {
-
     /**
      * Fetch the list of custom completion rules that this module defines.
      *
@@ -107,6 +106,4 @@ class custom_completion extends activity_custom_completion {
             'completionminattempts',
         ];
     }
-
 }
-

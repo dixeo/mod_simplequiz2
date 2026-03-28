@@ -15,35 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_simplequiz2 course module viewed event class.
+ * The mod_simplequiz2 instance list viewed event.
  *
  * @package    mod_simplequiz2
- * @copyright  2023 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
- * @author     Céline Hernandez
+ * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace mod_simplequiz2\event;
 
 /**
- * Event fired when a simplequiz2 activity is viewed.
+ * Event fired when the simplequiz2 activity index is viewed.
  */
-class course_module_viewed extends \core\event\course_module_viewed {
-    /**
-     * Initialise event data.
-     */
-    protected function init() {
-        $this->data['crud'] = 'r';
-        $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
-        $this->data['objecttable'] = 'simplequiz2';
-    }
-
-    /**
-     * Map object ids for backup and restore.
-     *
-     * @return array|string
-     */
-    public static function get_objectid_mapping() {
-        return ['db' => 'simplequiz2', 'restore' => 'simplequiz2'];
-    }
+class course_module_instance_list_viewed extends \core\event\course_module_instance_list_viewed {
 }

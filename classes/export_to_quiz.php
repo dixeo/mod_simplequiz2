@@ -51,7 +51,6 @@ require_once($CFG->dirroot . '/question/type/multichoice/questiontype.php');
  * Builds a standard quiz activity from a simplequiz2 instance.
  */
 class export_to_quiz {
-
     /**
      * @var \stdClass Course module row of the source activity.
      */

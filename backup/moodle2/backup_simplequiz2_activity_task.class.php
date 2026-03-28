@@ -31,7 +31,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/backup/moodle2/backup_simplequiz2
  * Provides the steps to perform one complete backup of the simplequiz instance
  */
 class backup_simplequiz2_activity_task extends backup_activity_task {
-
     /**
      * No specific settings for this activity
      */
@@ -54,5 +53,4 @@ class backup_simplequiz2_activity_task extends backup_activity_task {
     public static function encode_content_links($content) {
         return $content;
     }
-
 }

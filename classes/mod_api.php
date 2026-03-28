@@ -42,7 +42,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/classes/database_interface.php');
  * Base class for simplequiz2 AJAX/API controllers (params, action, DB access).
  */
 abstract class mod_api {
-
     /**
      * Merged GET/POST parameters.
      *

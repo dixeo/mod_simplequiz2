@@ -31,7 +31,6 @@
  * Structure step to restore one simplequiz activity.
  */
 class restore_simplequiz2_activity_structure_step extends restore_activity_structure_step {
-
     /**
      * Declare restore path elements for the activity and optional user data.
      *
@@ -68,8 +67,8 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
     protected function process_simplequiz2($data) {
         global $DB;
 
-        $data         = (object) $data;
-        $oldid        = $data->id;
+        $data = (object) $data;
+        unset($data->id);
         $data->course = $this->get_courseid();
 
         // Insert the simplequiz record.
@@ -134,5 +133,4 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
         $this->add_related_files('mod_simplequiz2', 'intro', null);
         $this->add_related_files('mod_simplequiz2', 'data', null);
     }
-
 }

@@ -36,7 +36,6 @@ require_once($CFG->libdir . '/gradelib.php');
  * HTTP endpoint implementation for simplequiz2 AJAX actions.
  */
 class simplequiz_api extends mod_api {
-
     /**
      * Ensure the attempt row belongs to the current user and this activity.
      *
@@ -49,8 +48,10 @@ class simplequiz_api extends mod_api {
 
         $attemptrow = $this->db->get_attempt_data($attemptid);
         $cm = $simplequiz->__get('cm');
-        if (!$attemptrow || (int) $attemptrow->userid !== (int) $USER->id ||
-                (int) $attemptrow->cmid !== (int) $cm->id) {
+        if (
+            !$attemptrow || (int) $attemptrow->userid !== (int) $USER->id ||
+                (int) $attemptrow->cmid !== (int) $cm->id
+        ) {
             $this->send(403, 'Forbidden: invalid attempt access.');
         }
     }

@@ -22,6 +22,55 @@
  */
 
 define([], function() {
+
+    /**
+     * Whether the answer editor/textarea for a slot has non-empty content.
+     *
+     * @param {string} questionId Question id
+     * @param {string} answerId Answer id
+     * @return {boolean}
+     */
+    var answerSlotHasContent = function(questionId, answerId) {
+        let editor = document.querySelector(
+            "#id_questions" + questionId + "_answers_" + answerId +
+            "editable.editor_atto_content"
+        );
+        let stripContent = '';
+        if (editor === null) {
+            const ta = document.querySelector(
+                '#id_questions' + questionId + '_answers_' + answerId
+            );
+            stripContent = ta ? ta.textContent : '';
+        } else {
+            stripContent = editor.innerHTML;
+        }
+        stripContent = stripContent.replace(/<\/?p[^>]*>/g, "");
+        stripContent = stripContent.replace(/<\/?br[^>]*>/g, "");
+        stripContent = stripContent.trim();
+        return stripContent !== '';
+    };
+
+    /**
+     * True if some checked "correct answer" checkbox points to an answer slot with content.
+     *
+     * @param {string} questionId Question id
+     * @param {NodeListOf<Element>} checkboxs Correct-answer checkboxes for this question
+     * @return {boolean}
+     */
+    var hasCheckedAnswerWithContent = function(questionId, checkboxs) {
+        for (let i = 0; i < checkboxs.length; i++) {
+            const checkbox = checkboxs[i];
+            if (!checkbox.checked) {
+                continue;
+            }
+            const answerId = checkbox.dataset.answerid;
+            if (answerSlotHasContent(questionId, answerId)) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     var modSimplequizEdit = {
 
         preparedFieldsets: {},
@@ -361,41 +410,7 @@ define([], function() {
                     let checkboxs = document.querySelectorAll(
                         "input[id^='id_questions" + questionId + "_correctanswers_']"
                     );
-                    let checked = false;
-                    for (const checkbox of checkboxs) {
-                        if (checkbox.checked === true) {
-
-                            // Check if checked checkbox editor has content (empty answer is not correct answer)
-                            let answerId = checkbox.dataset.answerid;
-
-                            let editor = document.querySelector(
-                                "#id_questions" + questionId + "_answers_" + answerId +
-                                "editable.editor_atto_content"
-                            );
-                            let stripContent = '';
-                            if (editor === null) {
-
-                                // Editor are not init, use textarea
-                                const ta = document.querySelector(
-                                    '#id_questions' + questionId + '_answers_' + answerId
-                                );
-                                stripContent = ta ? ta.textContent : '';
-                            } else {
-                                stripContent = editor.innerHTML;
-                            }
-
-                            // Remove all useless tags from content to check if content is really empty
-                            stripContent = stripContent.replace(/<\/?p[^>]*>/g, "");
-                            stripContent = stripContent.replace(/<\/?br[^>]*>/g, "");
-                            stripContent = stripContent.trim();
-
-                            if (stripContent != '') {
-                                checked = true;
-                                break;
-                            }
-
-                        }
-                    }
+                    let checked = hasCheckedAnswerWithContent(questionId, checkboxs);
 
                     if (!checked) {
                         fieldset.querySelector('.error_no_right_answer').style.display = "inline";

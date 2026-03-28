@@ -40,7 +40,6 @@ function xmldb_simplequiz2_upgrade($oldversion) {
 
     // Create table for simplequiz user attempt info.
     if ($oldversion < 2023010500) {
-
         $targettablename = 'simplequiz2_attempts';
         if ($dbman->table_exists($targettablename)) {
             $table = new xmldb_table($targettablename);
@@ -75,7 +74,6 @@ function xmldb_simplequiz2_upgrade($oldversion) {
 
     // Create table to store attempts data.
     if ($oldversion < 2023010501) {
-
         $table = new xmldb_table('simplequiz2_attempt_data');
 
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
@@ -102,7 +100,6 @@ function xmldb_simplequiz2_upgrade($oldversion) {
 
     // Add field for attempts number completion.
     if ($oldversion < 2023011000) {
-
         $table = new xmldb_table('simplequiz2');
         $field = new xmldb_field('completionminattempts', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, 'timemodified');
         if (!$dbman->field_exists($table, $field)) {

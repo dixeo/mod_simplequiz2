@@ -27,7 +27,6 @@
  * Define the complete simplequiz structure for backup, with file and id annotations
  */
 class backup_simplequiz2_activity_structure_step extends backup_activity_structure_step {
-
     /**
      * Define the XML element tree for this activity backup.
      *
