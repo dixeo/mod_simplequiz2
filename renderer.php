@@ -27,7 +27,8 @@ class mod_simplequiz2_renderer extends plugin_renderer_base {
     /**
      * Print all questions, answers and navigation
      *
-     * @param $questionsdata
+     * @param \mod_simplequiz2\simplequiz $simplequiz Loaded activity instance.
+     * @param array $questionsdata Decoded question structures for the view.
      * @return bool|string
      * @throws moodle_exception
      */

@@ -236,7 +236,9 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
     }
 
     /**
-     * @param array $default_values
+     * Preprocess form default values before display.
+     *
+     * @param array $defaultvalues Default values (passed by reference).
      */
     public function data_preprocessing(&$defaultvalues) {
         parent::data_preprocessing($defaultvalues);
@@ -282,9 +284,9 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
     /**
      * Prepare draft area with current data
      *
-     * @param $fieldname
-     * @param $text
-     * @param $itemid
+     * @param string $fieldname Form element name for the editor.
+     * @param string $text Current HTML content.
+     * @param int $itemid File item id in the module file area.
      * @return mixed
      */
     public function create_draft_area($fieldname, $text, $itemid) {

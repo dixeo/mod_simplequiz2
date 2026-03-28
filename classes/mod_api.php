@@ -78,7 +78,7 @@ abstract class mod_api {
     /**
      * Set $this->action and return error if it's impossible.
      *
-     * @param $action the mod controller method to run
+     * @param string|null $action The mod controller method name to run.
      * @return void
      */
     private function prepare_action($action) {
@@ -94,10 +94,10 @@ abstract class mod_api {
     /**
      * Fetch a param in $this->params
      *
-     * @param string $name param name
-     * @param $type param type. MUST BE PHP constant type
-     * @param bool $required if the param is optional/required
-     * @param $default default value if param doesn't exists
+     * @param string $name Param name.
+     * @param int $type PHP filter_* constant (e.g. FILTER_VALIDATE_INT).
+     * @param bool $required If false, missing params return $default.
+     * @param mixed|null $default Default when param is optional and missing.
      * @return mixed
      */
     protected function get_param(string $name, $type = FILTER_UNSAFE_RAW, bool $required = true, $default = null) {

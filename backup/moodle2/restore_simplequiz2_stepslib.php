@@ -57,7 +57,9 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
     }
 
     /**
-     * @param $data
+     * Insert restored simplequiz2 activity row and register the new instance.
+     *
+     * @param array $data Parsed XML fields for one activity.
      * @throws base_step_exception
      * @throws dml_exception
      */

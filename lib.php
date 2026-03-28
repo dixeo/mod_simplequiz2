@@ -60,7 +60,7 @@ function simplequiz2_supports(string $feature) {
  * Implementation of the function for printing the form elements that control
  * whether the course reset functionality affects the simplequiz.
  *
- * @param $mform form passed by reference
+ * @param MoodleQuickForm $mform Moodle form instance (passed by reference).
  */
 function simplequiz2_reset_course_form_definition(&$mform) {
     $mform->addElement('header', 'simplequiz2_header', get_string('modulenameplural', 'simplequiz2'));
@@ -425,17 +425,16 @@ function simplequiz2_view($simplequiz, $course, $cm, $context) {
 }
 
 /**
+ * Pluginfile callback: find and send stored files for this module.
  *
- * pluginfile.php callback : used to find and send image in Moodle tree and DB
- *
- * @param $course
- * @param $cm
- * @param $context
- * @param $filearea
- * @param $args
- * @param $forcedownload
- * @param array $options
- * @return false|void
+ * @param stdClass $course Course object.
+ * @param stdClass $cm Course module object.
+ * @param context $context Module context.
+ * @param string $filearea File area name.
+ * @param array $args Remaining path args (itemid and filepath parts).
+ * @param bool $forcedownload Whether to force download.
+ * @param array $options Send options for send_stored_file().
+ * @return false|void False if file not found; otherwise sends file and exits.
  * @throws coding_exception
  */
 function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
@@ -468,8 +467,8 @@ function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $force
  * Prepare simple quiz data from mform and store draft file
  * return [0 => ["questiontext" => $text, "answers" => [ 0 => ["text" => blabla, "iscorrect" => 0/1] ]
  *
- * @param int $cmid
- * @param $data
+ * @param int $cmid Course module id.
+ * @param stdClass $data Submitted form data.
  * @return array
  */
 function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
@@ -603,8 +602,8 @@ function simplequiz2_rewrite_pluginfile_urls($questions, int $cmid) {
  * This function is called when the context for the page is a simplequiz module. This is not called by AJAX
  * so it is safe to rely on the $PAGE.
  *
- * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node|null $simplequiznode
+ * @param settings_navigation $settingsnav The settings navigation tree for the current page.
+ * @param navigation_node|null $simplequiznode Activity node under settings (may be null).
  * @throws coding_exception
  * @throws dml_exception
  * @throws moodle_exception

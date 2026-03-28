@@ -339,9 +339,8 @@ class export_to_quiz {
      * Create question with question text, one correct answer text and multiple other wrong answers
      * in new quiz
      *
-     * @param $questiontext
-     * @param $correctanswers
-     * @param $wronganswers
+     * @param stdClass $questiondata Question fields for export.
+     * @param array $answersdata List of answer objects (text, iscorrect, ...).
      * @return object
      * @throws coding_exception
      * @throws dml_exception
@@ -460,9 +459,9 @@ class export_to_quiz {
     /**
      * Find all files mentioned in $text, look for them in simplequiz activity and duplicate it in correct question area
      *
-     * @param $itemid (question or answer id)
-     * @param $text
-     * @param $filearea (questiontext or answer)
+     * @param int $itemid Question or answer id in the question bank.
+     * @param string $text HTML text possibly containing @@PLUGINFILE@@ references.
+     * @param string $filearea Target question file area (e.g. questiontext or answer).
      * @throws file_exception
      * @throws stored_file_creation_exception
      */

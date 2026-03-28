@@ -79,7 +79,7 @@ class simplequiz {
     /**
      * Permit to access private fields outside the class via $this->field syntax.
      *
-     * @param $field
+     * @param string $field Property name.
      * @return mixed
      */
     public function __get($field) {
@@ -89,8 +89,7 @@ class simplequiz {
     /**
      * Get the relative attempts row for a given user and module.
      *
-     * @param $cmid
-     * @param $userid
+     * @param int $userid User id.
      * @return false|mixed|stdClass|null
      */
     public function get_user_attempt(int $userid) {
@@ -154,9 +153,9 @@ class simplequiz {
     /**
      * Add an user attempt ? todo
      *
-     * @param int $attemptid
-     * @param int $questionid
-     * @param int $answerstatus : false for failed, else true
+     * @param int $attemptid Attempt data row id.
+     * @param int $questionid Question index in activity data.
+     * @param bool $answerstatus Whether the submitted answers for the question are fully correct.
      * @return bool
      */
     public function add_attempt_answer(int $attemptid, int $questionid, bool $answerstatus) {
@@ -279,8 +278,8 @@ class simplequiz {
     /**
      * Set the grade object for the _grade_item_update callback
      *
-     * @param int $grade int grade
-     * @param int $userid
+     * @param int $userid User id.
+     * @param float $grade Raw grade value.
      * @return stdClass
      */
     private function set_grade(int $userid, float $grade): stdClass {

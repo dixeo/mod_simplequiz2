@@ -97,7 +97,7 @@ class database_interface {
     /**
      * Update simplequiz_attempts record
      *
-     * @param $attempts
+     * @param stdClass $attempts Row object (must include id).
      * @return bool
      * @throws dml_exception
      */
@@ -130,7 +130,7 @@ class database_interface {
     /**
      * Update simplequiz_attempt_data record
      *
-     * @param $attempt
+     * @param stdClass $attempt Row object (must include id).
      * @return bool
      * @throws dml_exception
      */
