@@ -38,15 +38,30 @@ defined('MOODLE_INTERNAL') || die();
 // Load DB interface.
 require_once($CFG->dirroot . '/mod/simplequiz2/classes/database_interface.php');
 
+/**
+ * Base class for simplequiz2 AJAX/API controllers (params, action, DB access).
+ */
 abstract class mod_api {
 
-    // Payload (get, post).
+    /**
+     * Merged GET/POST parameters.
+     *
+     * @var array
+     */
     private $params = [];
 
-    // The method to run in the mod controller.
+    /**
+     * Controller method name to run.
+     *
+     * @var string
+     */
     private $action = '';
 
-    // Expose the DB interface.
+    /**
+     * Database interface singleton.
+     *
+     * @var database_interface
+     */
     protected $db;
 
     /**
@@ -84,7 +99,7 @@ abstract class mod_api {
     private function prepare_action($action) {
         if ($action === null) {
             $this->send(400, 'Bad request : action required.');
-        } elseif ($action === '') {
+        } else if ($action === '') {
             $this->send(400, 'Bad request : action value is not valid.');
         } else {
             $this->action = $action;

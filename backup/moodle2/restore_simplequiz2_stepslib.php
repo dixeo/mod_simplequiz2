@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Restore step definitions for mod_simplequiz2.
  *
  * @package    mod_simplequiz2
  * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
@@ -33,6 +33,8 @@
 class restore_simplequiz2_activity_structure_step extends restore_activity_structure_step {
 
     /**
+     * Declare restore path elements for the activity and optional user data.
+     *
      * @return array
      */
     protected function define_structure() {
@@ -124,6 +126,9 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
         $DB->insert_record('simplequiz2_attempt_data', $data);
     }
 
+    /**
+     * Link restored files into the new activity context.
+     */
     protected function after_execute() {
         // Move files into the restored plugin location.
         $this->add_related_files('mod_simplequiz2', 'intro', null);

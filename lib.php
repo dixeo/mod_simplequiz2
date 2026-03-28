@@ -74,7 +74,7 @@ function simplequiz2_reset_course_form_definition(&$mform) {
  * @return array
  */
 function simplequiz2_reset_course_form_defaults($course) {
-    return array('reset_simplequiz2_attempts' => 1);
+    return ['reset_simplequiz2_attempts' => 1];
 }
 
 /**
@@ -99,20 +99,20 @@ function simplequiz2_reset_userdata($data) {
         $DB->delete_records_select('simplequiz2_attempts',
             'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)', [
                 $data->courseid,
-                $module->id
+                $module->id,
             ]);
 
         $DB->delete_records_select('simplequiz2_attempt_data',
             'cmid IN (SELECT id FROM {course_modules} WHERE course = ? and module = ?)', [
                 $data->courseid,
-                $module->id
+                $module->id,
             ]);
 
-        $status[] = array(
+        $status[] = [
             'component' => $componentstr,
             'item'      => get_string('attemptsdeleted', 'simplequiz2'),
-            'error'     => false
-        );
+            'error'     => false,
+        ];
     }
 
     return $status;
@@ -153,7 +153,7 @@ function simplequiz2_add_instance($data, $mform) {
     // Force grade_item to be in display percent and grade pass at 100.
     $gradeitem = $DB->get_record('grade_items', [
         'itemmodule'   => 'simplequiz2',
-        'iteminstance' => $data->id
+        'iteminstance' => $data->id,
     ]);
     if ($gradeitem) {
         $DB->update_record('grade_items', [
@@ -203,7 +203,7 @@ function simplequiz2_update_instance($data, $mform) {
 function simplequiz2_delete_instance($id) {
     global $DB;
 
-    $simplequiz = $DB->get_record('simplequiz2', array('id' => $id), '*', MUST_EXIST);
+    $simplequiz = $DB->get_record('simplequiz2', ['id' => $id], '*', MUST_EXIST);
     $cm         = $DB->get_record_sql('
         SELECT cm.*
         FROM {course_modules} cm
@@ -211,10 +211,10 @@ function simplequiz2_delete_instance($id) {
         WHERE m.name = "simplequiz2" AND cm.instance = ?
     ', [$id]);
 
-    $events = $DB->get_records('event', array(
+    $events = $DB->get_records('event', [
         'modulename' => 'simplequiz2',
-        'instance'   => $simplequiz->id
-    ));
+        'instance'   => $simplequiz->id,
+    ]);
     foreach ($events as $event) {
         $event = calendar_event::load($event);
         $event->delete();
@@ -228,7 +228,7 @@ function simplequiz2_delete_instance($id) {
     $DB->delete_records('simplequiz2_attempt_data', ['cmid' => $cm->id]);
 
     // We must delete the module record after we delete the grade item.
-    $DB->delete_records('simplequiz2', array('id' => $id));
+    $DB->delete_records('simplequiz2', ['id' => $id]);
 
     return true;
 }
@@ -349,7 +349,7 @@ function simplequiz2_grade_item_delete($simplequiz) {
     require_once($CFG->libdir . '/gradelib.php');
 
     return grade_update('mod/simplequiz2', $simplequiz->course, 'mod', 'simplequiz2', $simplequiz->id, 0, null,
-        array('deleted' => 1));
+        ['deleted' => 1]);
 }
 
 /**
@@ -390,10 +390,10 @@ function simplequiz2_view($simplequiz, $course, $cm, $context) {
     global $DB, $USER;
 
     // Trigger course_module_viewed event.
-    $params = array(
+    $params = [
         'context'  => $context,
-        'objectid' => $simplequiz->id
-    );
+        'objectid' => $simplequiz->id,
+    ];
 
     $event = \mod_simplequiz2\event\course_module_viewed::create($params);
     $event->add_record_snapshot('course_modules', $cm);
@@ -411,7 +411,7 @@ function simplequiz2_view($simplequiz, $course, $cm, $context) {
         // Update timemodified for the view.
         $cmcompletion = $DB->get_record('course_modules_completion', [
             'coursemoduleid' => $cm->id,
-            'userid'         => $USER->id
+            'userid'         => $USER->id,
         ]);
 
         // In some cases, "mark activity as viewed" is not enabled in mod_form.
@@ -437,7 +437,7 @@ function simplequiz2_view($simplequiz, $course, $cm, $context) {
  * @return false|void False if file not found; otherwise sends file and exits.
  * @throws coding_exception
  */
-function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
 
     // Requires user logged in the course where image is displayed.
     require_course_login($course, true, $cm);
@@ -510,7 +510,7 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
             // Prepare object and store files.
             $answer              = (object) [
                 'text'      => simplequiz2_save_editor_files($context->id, $questionitemid . $answeritemid, $answerdata),
-                'iscorrect' => $questionrawdata['correctanswers'][$order]
+                'iscorrect' => $questionrawdata['correctanswers'][$order],
             ];
             $question->answers[] = $answer;
 
@@ -559,12 +559,12 @@ function simplequiz2_rewrite_pluginfile_urls($questions, int $cmid) {
 
     $context = \context_module::instance($cmid);
 
-    $options   = array(
+    $options   = [
         'noclean' => true,
         'para'    => false,
         'filter'  => true,
-        'context' => $context
-    );
+        'context' => $context,
+    ];
     $questions = (array) $questions;
 
     // Rename all @@PLUGINFILE@@ link with pluginfile.php.
@@ -608,7 +608,7 @@ function simplequiz2_rewrite_pluginfile_urls($questions, int $cmid) {
  * @throws dml_exception
  * @throws moodle_exception
  */
-function simplequiz2_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $simplequiznode = null) {
+function simplequiz2_extend_settings_navigation(settings_navigation $settingsnav, ?navigation_node $simplequiznode = null) {
     global $PAGE, $DB, $COURSE;
 
     // Prepare context to capability check.

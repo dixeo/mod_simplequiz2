@@ -29,14 +29,28 @@ use dml_exception;
 use Exception;
 use stdClass;
 
+/**
+ * Thin wrapper around $DB for simplequiz2 persistence.
+ */
 class database_interface {
 
+    /**
+     * Moodle database manager.
+     *
+     * @var \moodle_database
+     */
     protected $db;
 
-    // Singleton instance.
+    /**
+     * Singleton instance.
+     *
+     * @var self|null
+     */
     protected static $instance;
 
-    // Constructor.
+    /**
+     * Create the interface and bind global $DB.
+     */
     public function __construct() {
         global $DB;
         $this->db = $DB;

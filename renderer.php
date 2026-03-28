@@ -56,7 +56,7 @@ class mod_simplequiz2_renderer extends plugin_renderer_base {
         return $this->render_from_template('mod_simplequiz2/simplequiz_container', [
                 'name' => $simplequiz->__get('instance')->name,
                 'intro' => format_module_intro('simplequiz2', $simplequiz->__get('instance'), $simplequiz->__get('cm')->id),
-                'questions' => $data
+                'questions' => $data,
         ]);
     }
 

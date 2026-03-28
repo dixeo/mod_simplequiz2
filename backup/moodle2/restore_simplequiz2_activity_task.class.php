@@ -53,8 +53,8 @@ class restore_simplequiz2_activity_task extends restore_activity_task {
      * processed by the link decoder.
      */
     public static function define_decode_contents() {
-        $contents   = array();
-        $contents[] = new restore_decode_content('simplequiz2', array('intro'), 'simplequiz2');
+        $contents   = [];
+        $contents[] = new restore_decode_content('simplequiz2', ['intro'], 'simplequiz2');
         return $contents;
     }
 
@@ -63,7 +63,7 @@ class restore_simplequiz2_activity_task extends restore_activity_task {
      * to the activity to be executed by the link decoder.
      */
     public static function define_decode_rules() {
-        $rules = array();
+        $rules = [];
 
         $rules[] = new restore_decode_rule('SIMPLEQUIZ2VIEWBYID', '/mod/simplequiz2/view.php?id=$1', 'course_module');
         $rules[] = new restore_decode_rule('SIMPLEQUIZ2INDEX', '/mod/simplequiz2/index.php?id=$1', 'course');

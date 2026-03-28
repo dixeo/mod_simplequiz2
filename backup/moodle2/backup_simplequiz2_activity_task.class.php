@@ -33,11 +33,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/backup/moodle2/backup_simplequiz2
 class backup_simplequiz2_activity_task extends backup_activity_task {
 
     /**
-     * @param bool $simplequizoldexists True if there are records in the simplequiz_old table.
-     */
-    protected static $simplequizoldexists = null;
-
-    /**
      * No specific settings for this activity
      */
     protected function define_my_settings() {

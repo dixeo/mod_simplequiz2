@@ -120,7 +120,7 @@ class simplequiz {
             ];
 
             $this->db->add_user_attempts($attempts);
-        } elseif ($attempts->completed != 1) {
+        } else if ($attempts->completed != 1) {
             // Add one to attempts counter and update last attempt time.
             $attempts->cntattempt++;
             $attempts->timelastattempt = time();
@@ -283,7 +283,7 @@ class simplequiz {
      * @return stdClass
      */
     private function set_grade(int $userid, float $grade): stdClass {
-        // To prevent php 8.1 deprecated message because $grade can be float, we cast to int just after
+        // PHP 8.1: cast float grade to int to avoid deprecation notices.
         $grade = (int) $grade;
 
         $gradeobj = new stdClass();

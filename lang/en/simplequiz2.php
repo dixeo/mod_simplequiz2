@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,75 +22,64 @@
  * @author     Pierre FACQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// Generic.
-$string['pluginname'] = 'MCQ';
-$string['modulename'] = 'MCQ';
-$string['plugintitle'] = 'MCQ';
-$string['pluginadministration'] = 'MCQ Administration';
-$string['modulenameplural'] = 'MCQs';
-$string['simplequiz2:addinstance'] = 'Add an MCQ activity';
-$string['simplequiz2:view'] = 'View an MCQ activity';
-$string['deletealluserdata'] = 'Delete all MCQ attempts';
-$string['attemptsdeleted'] = 'MCQ attempts deleted';
-$string['modulename_help'] = 'SimpleQuiz runs multiple-choice questions with instant feedback, attempt tracking, and optional completion based on minimum attempts. You can export compatible items to the standard Quiz activity (requires mod_quiz).';
-
-// Edit.
-$string['converttoquiz'] = 'Convert to Quiz activity';
-$string['convert_success'] = "Conversion completed successfully";
-$string['cantconvertcodeerror'] = 'An error occurred while converting the module, please contact support team';
-
-// Form.
-$string['formquestiontitle'] = 'Question {$a}';
-$string['formanswertitle'] = 'Answer {$a}';
-$string['questiontext'] = 'Question text';
-$string['iscorrectanswer'] = 'Correct answer?';
 $string['addquestion'] = "Add a question";
-$string['deletequestion'] = "Delete this question";
-$string['notenoughanswerserror'] = 'Questions must have at least two answers.';
-$string['norightanswererror'] = 'Questions must have at least one correct answer.';
-$string['completionminattemptsgroup'] = 'Minimum number of attempts';
-$string['completionminattempts:attempts'] = 'The student must complete or attempt the activity one or more times: {$a}';
-$string['completionminattempts'] = 'The student must complete or attempt the activity one or more times: ';
-$string['completionminattemptsdesc'] = 'The student must complete or attempt the activity {$a} times';
-
-// View.
-$string['question'] = 'Question';
-$string['no-questions'] = "Activity under construction";
-$string['check-answer'] = "Check the answer";
-$string['nextquestion'] = "Next question";
-$string['restart'] = "Restart";
-$string['questionsuccess'] = "Correct answer";
-$string['questionfail'] = "Incorrect answer";
-$string['questionpartial'] = 'Partially correct answer';
-$string['aria_audio'] = 'Audio: {$a->description}. Please listen to the sound.';
-$string['aria_question_text'] = 'Question {$a->order}: {$a->description}';
 $string['aria_answer_text'] = 'Answer: {$a->answer}';
-$string['aria_restart'] = '{$a->status}: end of activity. You can restart or move to the next activity.';
-$string['aria_next'] = '{$a->status}: go to the next question.';
-$string['aria_video'] = 'Video: {$a->description}. Please watch the video.';
+$string['aria_audio'] = 'Audio: {$a->description}. Please listen to the sound.';
 $string['aria_image'] = 'Image: {$a->description}.';
 $string['aria_math'] = 'Mathematical equation.';
+$string['aria_next'] = '{$a->status}: go to the next question.';
 $string['aria_no_description'] = 'no description';
-$string['session_expired_title'] = 'Session expired';
-$string['session_expired_body'] = "<p>You will be redirected to the home page.<br>Please log in again to continue.</p>";
-// ELEA_RQM-163: Add result page at the end of the quiz.
-$string['show-results'] = 'Results';
-$string['result-help'] = 'Only the highest score is kept.';
-$string['result-bestscore'] = 'Best score: {$a->score}%';
-$string['result-score'] = 'Score achieved: {$a->score}%';
-
-// Privacy API (see https://moodledev.io/docs/5.2/apis/subsystems/privacy).
+$string['aria_question_text'] = 'Question {$a->order}: {$a->description}';
+$string['aria_restart'] = '{$a->status}: end of activity. You can restart or move to the next activity.';
+$string['aria_video'] = 'Video: {$a->description}. Please watch the video.';
+$string['attemptsdeleted'] = 'MCQ attempts deleted';
+$string['cantconvertcodeerror'] = 'An error occurred while converting the module, please contact support team';
+$string['check-answer'] = "Check the answer";
+$string['completionminattempts'] = 'The student must complete or attempt the activity one or more times: ';
+$string['completionminattempts:attempts'] = 'The student must complete or attempt the activity one or more times: {$a}';
+$string['completionminattemptsdesc'] = 'The student must complete or attempt the activity {$a} times';
+$string['completionminattemptsgroup'] = 'Minimum number of attempts';
+$string['convert_success'] = "Conversion completed successfully";
+$string['converttoquiz'] = 'Convert to Quiz activity';
+$string['deletealluserdata'] = 'Delete all MCQ attempts';
+$string['deletequestion'] = "Delete this question";
+$string['formanswertitle'] = 'Answer {$a}';
+$string['formquestiontitle'] = 'Question {$a}';
+$string['iscorrectanswer'] = 'Correct answer?';
+$string['modulename'] = 'MCQ';
+$string['modulename_help'] = 'SimpleQuiz runs multiple-choice questions with instant feedback, attempt tracking, and optional completion based on minimum attempts. You can export compatible items to the standard Quiz activity (requires mod_quiz).';
+$string['modulenameplural'] = 'MCQs';
+$string['nextquestion'] = "Next question";
+$string['no-questions'] = "Activity under construction";
+$string['norightanswererror'] = 'Questions must have at least one correct answer.';
+$string['notenoughanswerserror'] = 'Questions must have at least two answers.';
+$string['pluginadministration'] = 'MCQ Administration';
+$string['pluginname'] = 'MCQ';
+$string['plugintitle'] = 'MCQ';
 $string['privacy:metadata:core_files'] = 'The MCQ activity stores files embedded in the activity introduction and question content.';
+$string['privacy:metadata:simplequiz2_attempt_data'] = 'Per-session answer data while the user progresses through the activity.';
+$string['privacy:metadata:simplequiz2_attempt_data:answers'] = 'JSON-encoded map of question identifiers to answer outcomes for this session.';
+$string['privacy:metadata:simplequiz2_attempt_data:cmid'] = 'The course module instance this session belongs to.';
+$string['privacy:metadata:simplequiz2_attempt_data:timecreated'] = 'When this session record was created.';
+$string['privacy:metadata:simplequiz2_attempt_data:userid'] = 'The user this session belongs to.';
 $string['privacy:metadata:simplequiz2_attempts'] = 'Summary of each user\'s attempts for a given MCQ activity instance.';
 $string['privacy:metadata:simplequiz2_attempts:cmid'] = 'The course module instance this summary belongs to.';
-$string['privacy:metadata:simplequiz2_attempts:userid'] = 'The user this summary belongs to.';
 $string['privacy:metadata:simplequiz2_attempts:cntattempt'] = 'How many attempts have been recorded for this user.';
+$string['privacy:metadata:simplequiz2_attempts:completed'] = 'Whether the user completed the activity successfully (plugin-specific flag).';
 $string['privacy:metadata:simplequiz2_attempts:timefirstattempt'] = 'Time of the first attempt.';
 $string['privacy:metadata:simplequiz2_attempts:timelastattempt'] = 'Time of the most recent attempt.';
-$string['privacy:metadata:simplequiz2_attempts:completed'] = 'Whether the user completed the activity successfully (plugin-specific flag).';
-$string['privacy:metadata:simplequiz2_attempt_data'] = 'Per-session answer data while the user progresses through the activity.';
-$string['privacy:metadata:simplequiz2_attempt_data:cmid'] = 'The course module instance this session belongs to.';
-$string['privacy:metadata:simplequiz2_attempt_data:userid'] = 'The user this session belongs to.';
-$string['privacy:metadata:simplequiz2_attempt_data:answers'] = 'JSON-encoded map of question identifiers to answer outcomes for this session.';
-$string['privacy:metadata:simplequiz2_attempt_data:timecreated'] = 'When this session record was created.';
+$string['privacy:metadata:simplequiz2_attempts:userid'] = 'The user this summary belongs to.';
+$string['question'] = 'Question';
+$string['questionfail'] = "Incorrect answer";
+$string['questionpartial'] = 'Partially correct answer';
+$string['questionsuccess'] = "Correct answer";
+$string['questiontext'] = 'Question text';
+$string['restart'] = "Restart";
+$string['result-bestscore'] = 'Best score: {$a->score}%';
+$string['result-help'] = 'Only the highest score is kept.';
+$string['result-score'] = 'Score achieved: {$a->score}%';
+$string['session_expired_body'] = "<p>You will be redirected to the home page.<br>Please log in again to continue.</p>";
+$string['session_expired_title'] = 'Session expired';
+$string['show-results'] = 'Results';
+$string['simplequiz2:addinstance'] = 'Add an MCQ activity';
+$string['simplequiz2:view'] = 'View an MCQ activity';

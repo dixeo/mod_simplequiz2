@@ -33,10 +33,19 @@ require_once($CFG->dirroot . '/mod/simplequiz2/classes/database_interface.php');
  */
 class mod_simplequiz2_mod_form extends moodleform_mod {
 
+    /**
+     * @var \mod_simplequiz2\database_interface
+     */
     private $db;
+
+    /**
+     * @var \stdClass|false Current instance row when editing.
+     */
     private $simplequiz;
 
-    // Reset htmleditor user preference after forcing Atto.
+    /**
+     * Show the form using Atto temporarily, then restore the user's editor preference.
+     */
     public function display() {
         // Force Atto but keep user preference to set it back after.
         $originaleditor = get_user_preferences('htmleditor') ?? 'tiny';
@@ -67,9 +76,9 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field.
-        $mform->addElement('text', 'name', get_string('name'), array(
-            'size' => '64'
-        ));
+        $mform->addElement('text', 'name', get_string('name'), [
+            'size' => '64',
+        ]);
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -95,6 +104,8 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
     }
 
     /**
+     * Add repeatable question and answer fields to the form.
+     *
      * @throws coding_exception
      */
     private function define_questions_fields() {
@@ -155,11 +166,11 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
             $mform->addElement('editor',
                 "questions$i" . "[text]",
                 get_string('questiontext', 'simplequiz2'),
-                array(
+                [
                     'rows'  => 3,
-                    'class' => $classes
-                ),
-                array('maxfiles' => EDITOR_UNLIMITED_FILES)
+                    'class' => $classes,
+                ],
+                ['maxfiles' => EDITOR_UNLIMITED_FILES]
             );
             $mform->setType("questions$i" . "[text]", PARAM_RAW);
 
@@ -183,8 +194,8 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
                     'editor',
                     "questions$i" . "[answers][$j]",
                     get_string('formanswertitle', 'simplequiz2', $j + 1),
-                    array('rows' => 1),
-                    array('maxfiles' => EDITOR_UNLIMITED_FILES)
+                    ['rows' => 1],
+                    ['maxfiles' => EDITOR_UNLIMITED_FILES]
                 );
                 $mform->setType("questions$i" . "[answers][$j]", PARAM_RAW);
 
@@ -203,7 +214,7 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
                 $answerelements[] = $mform->addElement('advcheckbox', "questions$i" . "[correctanswers][$j]",
                     get_string('iscorrectanswer', 'simplequiz2'), null, ['data-answerid' => $j], [
                         0,
-                        1
+                        1,
                     ]);
                 $mform->setType("questions$i" . "[correctanswers][$j]", PARAM_BOOL);
                 if (isset($questionsdata[$i]->answers[$j])) {
@@ -267,16 +278,22 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
         $group   = [];
         $group[] =& $mform->createElement('checkbox', 'completionminattemptsenabled', '',
             get_string('completionminattempts', 'simplequiz2'));
-        $group[] =& $mform->createElement('text', 'completionminattempts', '', array('size' => 3));
+        $group[] =& $mform->createElement('text', 'completionminattempts', '', ['size' => 3]);
         $mform->setType('completionminattempts', PARAM_INT);
-        $mform->addGroup($group, 'completionminattemptsgroup', get_string('completionminattemptsgroup', 'simplequiz2'), array(' '),
+        $mform->addGroup($group, 'completionminattemptsgroup', get_string('completionminattemptsgroup', 'simplequiz2'), [' '],
             false);
 
         $mform->disabledIf('completionminattempts', 'completionminattemptsenabled', 'notchecked');
 
-        return array('completionminattemptsgroup');
+        return ['completionminattemptsgroup'];
     }
 
+    /**
+     * Whether the minimum-attempts completion rule is enabled in submitted data.
+     *
+     * @param \stdClass|array $data Form data.
+     * @return bool
+     */
     public function completion_rule_enabled($data) {
         return (!empty($data['completionminattemptsenabled']) && $data['completionminattempts'] != 0);
     }
@@ -334,6 +351,13 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
         }
     }
 
+    /**
+     * Validate form values before save.
+     *
+     * @param array $data Submitted data.
+     * @param array $files Uploaded files.
+     * @return array Errors keyed by element name.
+     */
     public function validation($data, $files) {
         if (!empty($data['completionpassgrade'])) {
             $data['gradepass'] = SIMPLE_QUIZ2_GRADE_MAX;

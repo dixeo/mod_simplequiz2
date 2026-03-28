@@ -32,7 +32,7 @@ $context = context_module::instance($cm->id);
 require_login($cm->course, true, $cm);
 require_capability('mod/simplequiz2:view', $context);
 
-$PAGE->set_url('/mod/simplequiz2/view.php', array('id' => $cm->id));
+$PAGE->set_url('/mod/simplequiz2/view.php', ['id' => $cm->id]);
 $PAGE->set_title($cm->name);
 $PAGE->set_context($context);
 $PAGE->add_body_class('limitedwidth');

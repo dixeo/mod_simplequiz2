@@ -57,14 +57,14 @@ function xmldb_simplequiz2_upgrade($oldversion) {
         $table->add_field('timelastattempt', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
         $table->add_field('completed', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, null);
 
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
-        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, array('cmid'), 'course_modules', ['id']);
-        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, array('userid'), 'user', ['id']);
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, ['cmid'], 'course_modules', ['id']);
+        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
 
-        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, array(
+        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, [
             'cmid',
-            'userid'
-        ));
+            'userid',
+        ]);
 
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
@@ -84,14 +84,14 @@ function xmldb_simplequiz2_upgrade($oldversion) {
         $table->add_field('answers', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
 
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
-        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, array('cmid'), 'course_modules', ['id']);
-        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, array('userid'), 'user', ['id']);
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('foreigncmid', XMLDB_KEY_FOREIGN, ['cmid'], 'course_modules', ['id']);
+        $table->add_key('foreignuserid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
 
-        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, array(
+        $table->add_index('simplequiz-userid-attempt', XMLDB_INDEX_NOTUNIQUE, [
             'cmid',
-            'userid'
-        ));
+            'userid',
+        ]);
 
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);

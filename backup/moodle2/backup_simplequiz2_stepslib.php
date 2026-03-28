@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Backup step definitions for mod_simplequiz2.
  *
  * @package    mod_simplequiz2
  * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
@@ -29,6 +29,8 @@
 class backup_simplequiz2_activity_structure_step extends backup_activity_structure_step {
 
     /**
+     * Define the XML element tree for this activity backup.
+     *
      * @return backup_nested_element
      * @throws base_element_struct_exception
      * @throws base_step_exception
@@ -51,7 +53,7 @@ class backup_simplequiz2_activity_structure_step extends backup_activity_structu
                 'grade',
                 'timecreated',
                 'timemodified',
-                'completionminattempts'
+                'completionminattempts',
             ]
         );
 

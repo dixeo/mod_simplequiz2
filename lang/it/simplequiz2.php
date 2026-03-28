@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,60 +22,51 @@
  * @author     Pierre FACQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// Generic.
-$string['pluginname'] = 'MCQ';
-$string['modulename'] = 'MCQ';
-$string['plugintitle'] = 'MCQ';
-$string['pluginadministration'] = 'Amministrazione MCQ';
-$string['modulenameplural'] = 'MCQ';
-$string['simplequiz2:addinstance'] = 'Aggiungi un\'attività MCQ';
-$string['simplequiz2:view'] = 'Visualizza un\'attività MCQ';
-$string['deletealluserdata'] = 'Elimina tutti i tentativi MCQ';
-$string['attemptsdeleted'] = 'Tentativi MCQ eliminati';
-$string['modulename_help'] = 'Questa attività ti consente di condurre una serie di domande a scelta multipla.';
-
-// Edit.
-$string['converttoquiz'] = 'Converti in attività Quiz';
-$string['convert_success'] = "Conversione effettuata con successo";
-$string['cantconvertcodeerror'] = 'Si è verificato un errore durante la conversione del modulo, contatta il team di supporto';
-
-// Form.
-$string['formquestiontitle'] = 'Domanda {$a}';
-$string['formanswertitle'] = 'Risposta {$a}';
-$string['questiontext'] = 'Testo della domanda';
-$string['iscorrectanswer'] = 'Risposta corretta?';
 $string['addquestion'] = "Aggiungi una domanda";
-$string['deletequestion'] = "Elimina questa domanda";
-$string['notenoughanswerserror'] = 'Le domande devono avere almeno due risposte.';
-$string['norightanswererror'] = 'Le domande devono avere almeno una risposta corretta.';
-$string['completionminattemptsgroup'] = 'Numero minimo di tentativi';
-$string['completionminattempts:attempts'] = 'Lo studente deve completare o tentare l\'attività una o più volte: {$a}';
-$string['completionminattempts'] = 'Lo studente deve completare o tentare l\'attività una o più volte: ';
-$string['completionminattemptsdesc'] = 'Lo studente deve completare o tentare l\'attività {$a} volte';
-
-// View.
-$string['question'] = 'Domanda';
-$string['no-questions'] = "Attività in fase di costruzione";
-$string['check-answer'] = "Verifica la risposta";
-$string['nextquestion'] = "Domanda successiva";
-$string['restart'] = "Ricomincia";
-$string['questionsuccess'] = "Risposta corretta";
-$string['questionfail'] = "Risposta sbagliata";
-$string['questionpartial'] = 'Risposta parzialmente corretta';
-$string['aria_audio'] = 'Audio: {$a->description}. Ascolta il suono.';
-$string['aria_question_text'] = 'Domanda {$a->order}: {$a->description}';
 $string['aria_answer_text'] = 'Risposta: {$a->answer}';
-$string['aria_restart'] = '{$a->status}: fine dell\'attività. Puoi ricominciare o passare all\'attività successiva.';
-$string['aria_next'] = '{$a->status}: vai alla domanda successiva.';
-$string['aria_video'] = 'Video: {$a->description}. Guarda il video.';
+$string['aria_audio'] = 'Audio: {$a->description}. Ascolta il suono.';
 $string['aria_image'] = 'Immagine: {$a->description}.';
 $string['aria_math'] = 'Equazione matematica.';
+$string['aria_next'] = '{$a->status}: vai alla domanda successiva.';
 $string['aria_no_description'] = 'nessuna descrizione';
-$string['session_expired_title'] = 'Sessione scaduta';
-$string['session_expired_body'] = "<p>Verrai reindirizzato alla pagina principale.<br>Effettua nuovamente l'accesso per continuare.</p>";
-// ELEA_RQM-163: Aggiungi pagina dei risultati alla fine del quiz.
-$string['show-results'] = 'Risultati';
-$string['result-help'] = 'Viene conservato solo il punteggio più alto.';
+$string['aria_question_text'] = 'Domanda {$a->order}: {$a->description}';
+$string['aria_restart'] = '{$a->status}: fine dell\'attività. Puoi ricominciare o passare all\'attività successiva.';
+$string['aria_video'] = 'Video: {$a->description}. Guarda il video.';
+$string['attemptsdeleted'] = 'Tentativi MCQ eliminati';
+$string['cantconvertcodeerror'] = 'Si è verificato un errore durante la conversione del modulo, contatta il team di supporto';
+$string['check-answer'] = "Verifica la risposta";
+$string['completionminattempts'] = 'Lo studente deve completare o tentare l\'attività una o più volte: ';
+$string['completionminattempts:attempts'] = 'Lo studente deve completare o tentare l\'attività una o più volte: {$a}';
+$string['completionminattemptsdesc'] = 'Lo studente deve completare o tentare l\'attività {$a} volte';
+$string['completionminattemptsgroup'] = 'Numero minimo di tentativi';
+$string['convert_success'] = "Conversione effettuata con successo";
+$string['converttoquiz'] = 'Converti in attività Quiz';
+$string['deletealluserdata'] = 'Elimina tutti i tentativi MCQ';
+$string['deletequestion'] = "Elimina questa domanda";
+$string['formanswertitle'] = 'Risposta {$a}';
+$string['formquestiontitle'] = 'Domanda {$a}';
+$string['iscorrectanswer'] = 'Risposta corretta?';
+$string['modulename'] = 'MCQ';
+$string['modulename_help'] = 'Questa attività ti consente di condurre una serie di domande a scelta multipla.';
+$string['modulenameplural'] = 'MCQ';
+$string['nextquestion'] = "Domanda successiva";
+$string['no-questions'] = "Attività in fase di costruzione";
+$string['norightanswererror'] = 'Le domande devono avere almeno una risposta corretta.';
+$string['notenoughanswerserror'] = 'Le domande devono avere almeno due risposte.';
+$string['pluginadministration'] = 'Amministrazione MCQ';
+$string['pluginname'] = 'MCQ';
+$string['plugintitle'] = 'MCQ';
+$string['question'] = 'Domanda';
+$string['questionfail'] = "Risposta sbagliata";
+$string['questionpartial'] = 'Risposta parzialmente corretta';
+$string['questionsuccess'] = "Risposta corretta";
+$string['questiontext'] = 'Testo della domanda';
+$string['restart'] = "Ricomincia";
 $string['result-bestscore'] = 'Miglior punteggio: {$a->score}%';
+$string['result-help'] = 'Viene conservato solo il punteggio più alto.';
 $string['result-score'] = 'Punteggio ottenuto: {$a->score}%';
+$string['session_expired_body'] = "<p>Verrai reindirizzato alla pagina principale.<br>Effettua nuovamente l'accesso per continuare.</p>";
+$string['session_expired_title'] = 'Sessione scaduta';
+$string['show-results'] = 'Risultati';
+$string['simplequiz2:addinstance'] = 'Aggiungi un\'attività MCQ';
+$string['simplequiz2:view'] = 'Visualizza un\'attività MCQ';

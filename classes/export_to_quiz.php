@@ -43,20 +43,53 @@ use function quiz_add_quiz_question;
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/modlib.php');
-require_once $CFG->libdir . '/completionlib.php';
+require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 require_once($CFG->dirroot . '/question/type/multichoice/questiontype.php');
 
+/**
+ * Builds a standard quiz activity from a simplequiz2 instance.
+ */
 class export_to_quiz {
 
+    /**
+     * @var \stdClass Course module row of the source activity.
+     */
     private $oldcm;
+
+    /**
+     * @var \stdClass Source simplequiz2 instance row.
+     */
     private $oldmod;
+
+    /**
+     * @var \stdClass|false Grade item for the source activity if any.
+     */
     private $oldgradeitem;
+
+    /**
+     * @var array File lists keyed by area (intro, data).
+     */
     private $oldfiles;
 
+    /**
+     * @var \context_module Context of the new quiz.
+     */
     private $quizcontext;
+
+    /**
+     * @var int Default question category id for the new quiz.
+     */
     private $categoryid;
+
+    /**
+     * @var \stdClass New quiz instance row.
+     */
     private $quiz;
+
+    /**
+     * @var \stdClass Course module row of the new quiz.
+     */
     private $quizcm;
 
     /**
@@ -155,7 +188,6 @@ class export_to_quiz {
         } else {
             \mod_quiz\quiz_settings::create($quizid)->get_grade_calculator()->recompute_quiz_sumgrades();
         }
-
 
         rebuild_course_cache($this->oldcm->course);
     }
@@ -280,7 +312,7 @@ class export_to_quiz {
             'questionsperpage' => 1,
         ];
 
-        // ELEA_RQM-635 : Set default completion
+        // ELEA_RQM-635: set default completion from course defaults.
         $defaultcompletion = manager::get_default_completion($course, $quizmodule);
         foreach ($defaultcompletion as $field => $value) {
             if ($field == 'modids') {

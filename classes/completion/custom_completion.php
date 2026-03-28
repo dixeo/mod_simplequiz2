@@ -32,6 +32,9 @@ use core_completion\activity_custom_completion;
 use Exception;
 use mod_simplequiz2\simplequiz;
 
+/**
+ * Custom completion rules for simplequiz2 (e.g. minimum attempts).
+ */
 class custom_completion extends activity_custom_completion {
 
     /**

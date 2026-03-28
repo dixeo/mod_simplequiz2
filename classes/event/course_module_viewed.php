@@ -25,10 +25,13 @@
 
 namespace mod_simplequiz2\event;
 
+/**
+ * Event fired when a simplequiz2 activity is viewed.
+ */
 class course_module_viewed extends \core\event\course_module_viewed {
 
     /**
-     * Init method.
+     * Initialise event data.
      */
     protected function init() {
         $this->data['crud'] = 'r';
@@ -37,6 +40,8 @@ class course_module_viewed extends \core\event\course_module_viewed {
     }
 
     /**
+     * Map object ids for backup and restore.
+     *
      * @return array|string
      */
     public static function get_objectid_mapping() {

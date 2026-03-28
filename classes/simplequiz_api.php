@@ -32,6 +32,9 @@ require_once($CFG->dirroot . '/mod/simplequiz2/lib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->libdir . '/gradelib.php');
 
+/**
+ * HTTP endpoint implementation for simplequiz2 AJAX actions.
+ */
 class simplequiz_api extends mod_api {
 
     /**
@@ -52,7 +55,9 @@ class simplequiz_api extends mod_api {
         }
     }
 
-    // Required to extend parent properties and methods.
+    /**
+     * Authenticate, enrol check, then dispatch the requested action.
+     */
     public function __construct() {
         parent::__construct();
 
@@ -130,6 +135,9 @@ class simplequiz_api extends mod_api {
         ]);
     }
 
+    /**
+     * Return attempt score and current best grade for the user.
+     */
     protected function get_attempt_results() {
         global $USER;
 

@@ -36,16 +36,16 @@ require_capability('mod/quiz:addinstance', context_module::instance($cmid));
 $returnurl = new moodle_url('/course/view.php', ['id' => $cm->course]);
 
 try {
-    // ELEA_RQM-234 : change course format if course is singleactivity
+    // ELEA_RQM-234: change course format if course is singleactivity.
     $course = get_course($cm->course);
-    if($course->format == "singleactivity"){
+    if ($course->format == "singleactivity") {
         $coursedata = (object)[
                 'id' => $course->id,
-                'format' => 'topics'
+                'format' => 'topics',
         ];
         update_course($coursedata);
 
-        // Remove section 1 to only use section 0
+        // Remove section 1 to only use section 0.
         $DB->delete_records('course_sections', ['course' => $course->id, 'section' => 1]);
     }
 

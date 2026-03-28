@@ -32,8 +32,6 @@ use core_privacy\local\request\helper;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy provider for SimpleQuiz (attempts and per-question answer payloads).
  */
@@ -43,8 +41,10 @@ class provider implements
         \core_privacy\local\request\core_userlist_provider {
 
     /**
-     * @param collection $collection
-     * @return collection
+     * Describe stored personal data for the privacy API.
+     *
+     * @param collection $collection The metadata collection to extend.
+     * @return collection The updated collection.
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_subsystem_link(
@@ -81,8 +81,10 @@ class provider implements
     }
 
     /**
-     * @param int $userid
-     * @return contextlist
+     * Return contexts containing user data for this plugin.
+     *
+     * @param int $userid The user id.
+     * @return contextlist Context list for the user.
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
         $sql = "SELECT DISTINCT c.id
@@ -108,7 +110,9 @@ class provider implements
     }
 
     /**
-     * @param userlist $userlist
+     * Add users who have data in the given context to the user list.
+     *
+     * @param userlist $userlist The user list to populate.
      */
     public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
@@ -142,7 +146,9 @@ class provider implements
     }
 
     /**
-     * @param approved_contextlist $contextlist
+     * Export user data for the approved contexts.
+     *
+     * @param approved_contextlist $contextlist Contexts approved for export.
      */
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
@@ -203,7 +209,9 @@ class provider implements
     }
 
     /**
-     * @param \context $context
+     * Delete all user data in the given context for this plugin.
+     *
+     * @param \context $context The module context.
      */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         global $DB;
@@ -222,7 +230,9 @@ class provider implements
     }
 
     /**
-     * @param approved_contextlist $contextlist
+     * Delete one user's data for the approved contexts.
+     *
+     * @param approved_contextlist $contextlist Contexts approved for deletion.
      */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         global $DB;
@@ -249,7 +259,9 @@ class provider implements
     }
 
     /**
-     * @param approved_userlist $userlist
+     * Delete data for multiple users in the user list context.
+     *
+     * @param approved_userlist $userlist Users approved for deletion.
      */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         global $DB;
