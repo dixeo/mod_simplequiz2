@@ -18,7 +18,7 @@
  * Redirection page to create a quiz from an simplequiz activity
  *
  * @package    mod_simplequiz2
- * @copyright 2022 Ministère de l'Éducation nationale français
+ * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
  * @author     Céline Hernandez
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

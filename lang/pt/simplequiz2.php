@@ -19,7 +19,7 @@
  * Strings for component 'simplequiz2', language 'pt'.
  *
  * @package    mod_simplequiz2
- * @copyright  2024 Edunao SAS (contact@edunao.com)
+ * @copyright  2024 Dixeo (contact@dixeo.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
