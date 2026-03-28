@@ -30,6 +30,7 @@ $cmid    = required_param('id', PARAM_INT);
 $cm      = get_coursemodule_from_id('simplequiz2', $cmid);
 $context = context_module::instance($cm->id);
 require_login($cm->course, true, $cm);
+require_capability('mod/simplequiz2:view', $context);
 
 $PAGE->set_url('/mod/simplequiz2/view.php', array('id' => $cm->id));
 $PAGE->set_title($cm->name);

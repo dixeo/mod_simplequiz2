@@ -168,8 +168,11 @@ abstract class mod_api {
 
             // Check enrollment.
             require_login($courseid, false, $cm, false, true);
+            require_capability('mod/' . $modname . ':view', \context_module::instance($cm->id));
         } catch (require_login_exception $moodleexception) {
             $this->send(403, "Unauthorized : you must be enrolled ($moodleexception->errorcode)");
+        } catch (\required_capability_exception $moodleexception) {
+            $this->send(403, "Forbidden : capability required ($moodleexception->errorcode)");
         } catch (moodle_exception $moodleexception) {
             $this->send(400, "Bad request : moodle exception ($moodleexception->errorcode)");
         }

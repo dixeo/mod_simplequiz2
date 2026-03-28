@@ -34,7 +34,7 @@ $string['simplequiz2:addinstance'] = 'Add an MCQ activity';
 $string['simplequiz2:view'] = 'View an MCQ activity';
 $string['deletealluserdata'] = 'Delete all MCQ attempts';
 $string['attemptsdeleted'] = 'MCQ attempts deleted';
-$string['modulename_help'] = 'This activity allows you to conduct a series of multiple-choice questions.';
+$string['modulename_help'] = 'SimpleQuiz runs multiple-choice questions with instant feedback, attempt tracking, and optional completion based on minimum attempts. You can export compatible items to the standard Quiz activity (requires mod_quiz).';
 
 // Edit.
 $string['converttoquiz'] = 'Convert to Quiz activity';
@@ -80,3 +80,18 @@ $string['show-results'] = 'Results';
 $string['result-help'] = 'Only the highest score is kept.';
 $string['result-bestscore'] = 'Best score: {$a->score}%';
 $string['result-score'] = 'Score achieved: {$a->score}%';
+
+// Privacy API (see https://moodledev.io/docs/5.2/apis/subsystems/privacy).
+$string['privacy:metadata:core_files'] = 'The MCQ activity stores files embedded in the activity introduction and question content.';
+$string['privacy:metadata:simplequiz2_attempts'] = 'Summary of each user\'s attempts for a given MCQ activity instance.';
+$string['privacy:metadata:simplequiz2_attempts:cmid'] = 'The course module instance this summary belongs to.';
+$string['privacy:metadata:simplequiz2_attempts:userid'] = 'The user this summary belongs to.';
+$string['privacy:metadata:simplequiz2_attempts:cntattempt'] = 'How many attempts have been recorded for this user.';
+$string['privacy:metadata:simplequiz2_attempts:timefirstattempt'] = 'Time of the first attempt.';
+$string['privacy:metadata:simplequiz2_attempts:timelastattempt'] = 'Time of the most recent attempt.';
+$string['privacy:metadata:simplequiz2_attempts:completed'] = 'Whether the user completed the activity successfully (plugin-specific flag).';
+$string['privacy:metadata:simplequiz2_attempt_data'] = 'Per-session answer data while the user progresses through the activity.';
+$string['privacy:metadata:simplequiz2_attempt_data:cmid'] = 'The course module instance this session belongs to.';
+$string['privacy:metadata:simplequiz2_attempt_data:userid'] = 'The user this session belongs to.';
+$string['privacy:metadata:simplequiz2_attempt_data:answers'] = 'JSON-encoded map of question identifiers to answer outcomes for this session.';
+$string['privacy:metadata:simplequiz2_attempt_data:timecreated'] = 'When this session record was created.';

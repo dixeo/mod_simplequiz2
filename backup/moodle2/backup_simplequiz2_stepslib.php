@@ -58,6 +58,34 @@ class backup_simplequiz2_activity_structure_step extends backup_activity_structu
         // Define sources.
         $simplequiz->set_source_table('simplequiz2', ['id' => backup::VAR_ACTIVITYID]);
 
+        // User-level attempt data (included when "Include user data" is enabled).
+        $attemptsums = new backup_nested_element('user_attempt_summaries');
+        $attemptsum = new backup_nested_element('user_attempt_summary', ['id'], [
+            'cmid', 'userid', 'cntattempt', 'timefirstattempt', 'timelastattempt', 'completed',
+        ]);
+        $sessions = new backup_nested_element('user_attempt_sessions');
+        $session = new backup_nested_element('user_attempt_session', ['id'], [
+            'cmid', 'userid', 'answers', 'timecreated',
+        ]);
+
+        $simplequiz->add_child($attemptsums);
+        $attemptsums->add_child($attemptsum);
+        $simplequiz->add_child($sessions);
+        $sessions->add_child($session);
+
+        if ($userinfo) {
+            $attemptsum->set_source_sql(
+                'SELECT * FROM {simplequiz2_attempts} WHERE cmid = ?',
+                [backup::VAR_MODID]
+            );
+            $session->set_source_sql(
+                'SELECT * FROM {simplequiz2_attempt_data} WHERE cmid = ?',
+                [backup::VAR_MODID]
+            );
+            $attemptsum->annotate_ids('user', 'userid');
+            $session->annotate_ids('user', 'userid');
+        }
+
         // Define file.
         $simplequiz->annotate_files('mod_simplequiz2', 'intro', null);
         $simplequiz->annotate_files('mod_simplequiz2', 'data', null);

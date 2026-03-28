@@ -34,6 +34,24 @@ require_once($CFG->libdir . '/gradelib.php');
 
 class simplequiz_api extends mod_api {
 
+    /**
+     * Ensure the attempt row belongs to the current user and this activity.
+     *
+     * @param int $attemptid
+     * @param simplequiz $simplequiz
+     * @return void
+     */
+    protected function assert_attempt_belongs_to_user(int $attemptid, simplequiz $simplequiz): void {
+        global $USER;
+
+        $attemptrow = $this->db->get_attempt_data($attemptid);
+        $cm = $simplequiz->__get('cm');
+        if (!$attemptrow || (int) $attemptrow->userid !== (int) $USER->id ||
+                (int) $attemptrow->cmid !== (int) $cm->id) {
+            $this->send(403, 'Forbidden: invalid attempt access.');
+        }
+    }
+
     // Required to extend parent properties and methods.
     public function __construct() {
         parent::__construct();
@@ -66,6 +84,7 @@ class simplequiz_api extends mod_api {
         $iscorrect = true;
 
         $simplequiz = new simplequiz($cmid);
+        $this->assert_attempt_belongs_to_user($attemptid, $simplequiz);
 
         // One correct answers is required per question.
         if ($useranwsers == '') {
@@ -119,6 +138,7 @@ class simplequiz_api extends mod_api {
         $attemptid = $this->get_param('attemptid', FILTER_VALIDATE_INT);
 
         $simplequiz = new simplequiz($cmid);
+        $this->assert_attempt_belongs_to_user($attemptid, $simplequiz);
 
         $attemptgrade = $simplequiz->get_attempt_grade($attemptid);
         $currentgrade = $simplequiz->get_current_grade($USER->id);

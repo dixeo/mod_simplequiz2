@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_simplequiz course module viewed event class.
+ * The mod_simplequiz2 course module viewed event class.
  *
  * @package    mod_simplequiz2
  * @copyright  2023 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)

@@ -37,8 +37,20 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
      */
     protected function define_structure() {
 
-        $paths   = array();
+        $paths = [];
         $paths[] = new restore_path_element('simplequiz2', '/activity/simplequiz2');
+
+        $userinfo = $this->get_setting_value('userinfo');
+        if ($userinfo) {
+            $paths[] = new restore_path_element(
+                'user_attempt_summary',
+                '/activity/simplequiz2/user_attempt_summaries/user_attempt_summary'
+            );
+            $paths[] = new restore_path_element(
+                'user_attempt_session',
+                '/activity/simplequiz2/user_attempt_sessions/user_attempt_session'
+            );
+        }
 
         // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);
@@ -61,6 +73,53 @@ class restore_simplequiz2_activity_structure_step extends restore_activity_struc
 
         // Immediately after inserting "activity" record, call this.
         $this->apply_activity_instance($newitemid);
+    }
+
+    /**
+     * Restore one row from simplequiz2_attempts.
+     *
+     * @param array $data
+     * @return void
+     */
+    protected function process_user_attempt_summary($data) {
+        global $DB;
+
+        $data = (object) $data;
+        unset($data->id);
+
+        $data->cmid = $this->task->get_moduleid();
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        if (empty($data->userid)) {
+            return;
+        }
+
+        $data->timefirstattempt = $this->apply_date_offset($data->timefirstattempt);
+        $data->timelastattempt = $this->apply_date_offset($data->timelastattempt);
+
+        $DB->insert_record('simplequiz2_attempts', $data);
+    }
+
+    /**
+     * Restore one row from simplequiz2_attempt_data.
+     *
+     * @param array $data
+     * @return void
+     */
+    protected function process_user_attempt_session($data) {
+        global $DB;
+
+        $data = (object) $data;
+        unset($data->id);
+
+        $data->cmid = $this->task->get_moduleid();
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        if (empty($data->userid)) {
+            return;
+        }
+
+        $data->timecreated = $this->apply_date_offset($data->timecreated);
+
+        $DB->insert_record('simplequiz2_attempt_data', $data);
     }
 
     protected function after_execute() {

@@ -112,5 +112,10 @@ function xmldb_simplequiz2_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2023011000, 'mod', 'simplequiz2');
     }
 
+    if ($oldversion < 2026032811) {
+        // Backup/restore: include user attempt tables when user data is selected (no schema change).
+        upgrade_plugin_savepoint(true, 2026032811, 'mod', 'simplequiz2');
+    }
+
     return true;
 }

@@ -1,3 +1,27 @@
+/*
+ * This file is part of Moodle - http://moodle.org/
+ *
+ * Moodle is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Moodle is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+ */
+/**
+ * SimpleQuiz2 module styles.
+ *
+ * @package    mod_simplequiz2
+ * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] iframe {
   position: relative !important;
   max-width: 100%;
@@ -217,10 +241,11 @@
 #page-mod-simplequiz2-view #simplequiz_container button.show-results {
   display: none;
 }
-#page.drawers .activity-header {
+/* Scoped to SimpleQuiz only (avoid affecting other activity modules). */
+body.path-mod-simplequiz2 #page.drawers .activity-header {
   margin: 0px !important;
   padding: 0px !important;
 }
-.path-mod .activity-header:not(:empty) {
+body.path-mod-simplequiz2 .activity-header:not(:empty) {
   background-color: white !important;
 }

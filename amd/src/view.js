@@ -14,11 +14,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * JS code for the simplequiz2 plugin student interface
+ * JS code for the simplequiz2 plugin student interface.
  *
- * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
- * @author     Céline Hernandez
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @module      mod_simplequiz2/view
+ * @copyright   2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
+ * @author      Céline Hernandez
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, str) {
@@ -261,7 +262,7 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             });
 
             // Prepare and print attempt score lang str.
-            var attemptScoreStr = str.get_string('result-score', 'simplequiz2', {
+            var attemptScoreStr = str.get_string('result-score', 'mod_simplequiz2', {
                 score: Math.trunc(data.attemptgrade)
             });
             $.when(attemptScoreStr).done(function(localizedString) {
@@ -272,7 +273,7 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             });
 
             // Prepare and print best score lang str.
-            var bestScoreStr = str.get_string('result-bestscore', 'simplequiz2', {
+            var bestScoreStr = str.get_string('result-bestscore', 'mod_simplequiz2', {
                 score: Math.trunc(data.bestscore)
             });
             $.when(bestScoreStr).done(function(localizedString) {
@@ -368,6 +369,7 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
             let formData = new FormData();
 
             // These data are for the authentification and enrollment.
+            formData.append('sesskey', M.cfg.sesskey);
             formData.append('courseid', this.courseId);
             formData.append('coursemoduleid', this.courseModuleId);
 

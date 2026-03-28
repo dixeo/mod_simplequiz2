@@ -32,6 +32,7 @@ require_once($CFG->dirroot . '/mod/simplequiz2/classes/simplequiz_api.php');
 
 // Required by code checker.
 require_login();
+require_sesskey();
 
 // Handle the HTTP async request.
 $api = new \mod_simplequiz2\simplequiz_api();
