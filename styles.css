@@ -14,191 +14,272 @@
  * You should have received a copy of the GNU General Public License
  * along with Moodle. If not, see <http://www.gnu.org/licenses/>.
  */
+
 /**
  * SimpleQuiz2 module styles.
+ *
+ * Structure: mod edit form → view page → #simplequiz_container (quiz UI) → global path tweaks.
+ * Properties per rule: position → display/box → typography → colour/background → effects.
+ * Long selectors are intentional (scope to this module; avoid leaking into other activities).
  *
  * @package    mod_simplequiz2
  * @copyright  2022 Ministère de l'Éducation nationale français; Dixeo (contact@dixeo.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/* -------------------------------------------------------------------------
+ * Mod edit form (#page-mod-simplequiz2-mod, modedit.php)
+ * ------------------------------------------------------------------------- */
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] iframe {
-    position: relative;
     max-width: 100%;
+    position: relative;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .delete-simplequestion {
     margin-left: 10px;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .btn:disabled {
     cursor: not-allowed;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .header-questiontext {
-    display: inline-block;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    height: 20px;
+    display: block;
+    width: 100%;
+    max-height: 2.8em;
+    margin: 0 0 8px 0;
     overflow: hidden;
-    vertical-align: middle;
-    max-width: 50%;
-    margin-left: 5px;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 1.4;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .header-info-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    flex-grow: 1;
     flex-direction: column;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
     margin-bottom: 15px;
+    margin-left: 53px;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .header-btn {
     float: right;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .error_not_enough_answers,
 #page-mod-simplequiz2-mod form[action="modedit.php"] .error_no_right_answer {
     display: none;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] [data-toggle="collapse"] ~ h3 {
     white-space: nowrap;
 }
-#page-mod-simplequiz2-mod form[action="modedit.php"] .ftoggler {
-    width: 100%;
-}
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .simplequiz2-right-answer .editor_atto {
     background-color: #98e086;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .simplequiz2-wrong-answer .editor_atto {
     background-color: #e08b86;
 }
+
 #page-mod-simplequiz2-mod form[action="modedit.php"] .editor_atto_toolbar {
     opacity: 0.8;
 }
+
+/* -------------------------------------------------------------------------
+ * View: main region
+ * ------------------------------------------------------------------------- */
+
 #page-mod-simplequiz2-view div[role="main"] iframe {
-    position: relative;
     max-width: 100%;
+    position: relative;
 }
+
+/* -------------------------------------------------------------------------
+ * View: quiz container (#simplequiz_container)
+ * ------------------------------------------------------------------------- */
+
 #page-mod-simplequiz2-view #simplequiz_container .question-container:not(:first-of-type) {
     display: none;
 }
+
+/* Result panel (hidden until JS shows it). */
 #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result {
     display: none;
     margin-top: 20px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 1.25em;
     justify-content: space-between;
+    text-align: center;
+    font-size: 1.25em;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result .fireworks {
-    background-image: url([[pix:mod_simplequiz2|victory-fireworks]]);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
     width: 33%;
+    background-image: url([[pix:mod_simplequiz2|victory-fireworks]]);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+#page-mod-simplequiz2-view #simplequiz_container #simplequiz-result #details {
+    width: 33%;
+    font-weight: normal;
+}
+
+#page-mod-simplequiz2-view #simplequiz_container #simplequiz-result #details .current-score,
+#page-mod-simplequiz2-view #simplequiz_container #simplequiz-result #details .best-score {
+    font-weight: bold;
 }
 
 @media (max-width: 930px) {
     #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result .fireworks {
         display: none;
     }
-}
-#page-mod-simplequiz2-view #simplequiz_container #simplequiz-result #details {
-    width: 33%;
-}
 
-@media (max-width: 930px) {
     #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result #details {
         width: 100%;
     }
 }
+
 #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result p:focus,
 #page-mod-simplequiz2-view #simplequiz_container #simplequiz-result p:focus-visible {
     outline: 0;
 }
+
+/* Post-quiz answers recap. */
 #page-mod-simplequiz2-view #simplequiz_container .answers {
     margin: 20px auto;
     text-align: center;
     font-size: 1.25em;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answers h3,
 #page-mod-simplequiz2-view #simplequiz_container .answers h4,
 #page-mod-simplequiz2-view #simplequiz_container .answers h5 {
     font-family: sans-serif;
     font-variant: none;
 }
+
+/* Question prompt + shared metrics with legacy class names on controls. */
 #page-mod-simplequiz2-view #simplequiz_container .question-text,
 #page-mod-simplequiz2-view #simplequiz_container .check-answer,
 #page-mod-simplequiz2-view #simplequiz_container .next-question,
 #page-mod-simplequiz2-view #simplequiz_container .restart {
+    position: relative;
     margin: 20px auto;
     padding: 5px 0;
-    position: relative;
-    font-size: 20px;
     text-align: center;
     vertical-align: middle;
-    color: #000;
-    font-weight: bold;
     font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .question-text {
     text-align: left;
+    font-style: normal;
     font-weight: bold;
-    font-style: italic;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .question-text h3,
 #page-mod-simplequiz2-view #simplequiz_container .question-text h4,
 #page-mod-simplequiz2-view #simplequiz_container .question-text h5 {
     font-family: sans-serif;
     font-variant: none;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .question-text:focus,
 #page-mod-simplequiz2-view #simplequiz_container .question-text:focus-visible {
     outline: 0;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .question-text .question-rank {
-    color: #4d05af;
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary);
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .question-text > p {
     display: inline-block;
 }
+
+#page-mod-simplequiz2-view #simplequiz_container .question-status {
+    text-align: center;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+#page-mod-simplequiz2-view #simplequiz_container .question-status.question-status-success {
+    color: var(--success);
+}
+
+#page-mod-simplequiz2-view #simplequiz_container .question-status.question-status-partial {
+    color: var(--warning);
+}
+
+#page-mod-simplequiz2-view #simplequiz_container .question-status.question-status-fail {
+    color: var(--danger);
+}
+
+/* Answer rows (click targets). */
 #page-mod-simplequiz2-view #simplequiz_container .answer-container {
+    position: relative;
     margin: 5px auto;
+    padding: 25px;
     width: 100%;
     height: auto;
-    border: 2px solid #ccc;
-    font-weight: bold;
-    text-align: left;
-    background-color: white;
+    border: 2px solid #eaecef;
     border-radius: 16px;
-    padding: 50px;
-    position: relative;
+    text-align: left;
+    font-weight: normal;
+    background-color: white;
 }
+
+#page-mod-simplequiz2-view #simplequiz_container .answer-container:hover {
+    background: #f8f8f8;
+}
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container[disabled] {
     color: inherit;
 }
-#page-mod-simplequiz2-view #simplequiz_container .answer-container.selected {
+
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.selected,
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.selected p {
+    font-weight: bold;
+    color: var(--primary);
+    border-color: var(--primary);
     background-color: #dedede;
-    color: #793dc0;
-    border-color: #793dc0;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container .answer-order {
     color: black;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container .answer-text {
     display: block;
     text-align: left;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container .answer-text > * {
     display: inline;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container::after {
     position: absolute;
     top: 0;
+    right: 10px;
     bottom: 0;
+    z-index: 2;
     width: 26px;
     height: 26px;
-    z-index: 2;
-    background-size: 26px;
-    background-repeat: no-repeat;
-    right: 10px;
     margin: auto 0;
+    background-repeat: no-repeat;
+    background-size: 26px;
 }
 
 @media (max-width: 768px) {
@@ -208,51 +289,70 @@
         background-size: 30px;
     }
 }
-#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-success {
-    background-color: #98e086;
+
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-success,
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-success p {
+    color: white;
+    background-color: var(--success);
+    border-color: var(--success);
+    font-weight: bold;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container.question-success::after {
+    right: 30px;
+    content: "";
     background-image: url([[pix:mod_simplequiz2|tick]]);
-    content: "";
+    filter: brightness(0) invert(1);
 }
-#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-fail {
-    background-color: #e08b86;
+
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-fail,
+#page-mod-simplequiz2-view #simplequiz_container .answer-container.question-fail p {
+    color: white;
+    background-color: var(--danger);
+    border-color: var(--danger);
+    font-weight: bold;
 }
+
 #page-mod-simplequiz2-view #simplequiz_container .answer-container.question-fail::after {
-    background-image: url([[pix:mod_simplequiz2|cross]]);
+    right: 30px;
     content: "";
+    background-image: url([[pix:mod_simplequiz2|cross]]);
+    filter: brightness(0) invert(1);
 }
-#page-mod-simplequiz2-view #simplequiz_container .question-status {
-    text-align: center;
-    font-size: 1.25em;
-    font-style: italic;
-}
+
+/* Primary actions (check / next / restart / results). */
 #page-mod-simplequiz2-view #simplequiz_container button.check-answer,
 #page-mod-simplequiz2-view #simplequiz_container button.next-question,
 #page-mod-simplequiz2-view #simplequiz_container button.restart,
 #page-mod-simplequiz2-view #simplequiz_container button.show-results {
     margin: 20px auto;
+    padding: 15px;
     width: auto;
     height: auto;
+    border: none;
     border-radius: 8px;
-    border: 0 solid #145072;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
     font-weight: bold;
     color: #fff;
-    text-align: center;
-    padding: 15px;
-    background-color: #180936;
-    font-size: 14px;
-    text-transform: uppercase;
+    background-color: var(--primary);
 }
+
 #page-mod-simplequiz2-view #simplequiz_container button.next-question,
 #page-mod-simplequiz2-view #simplequiz_container button.show-results {
     display: none;
 }
-/* Scoped to SimpleQuiz only (avoid affecting other activity modules). */
+
+/* -------------------------------------------------------------------------
+ * Activity header (Boost drawers): limit bleed to this module only.
+ * ------------------------------------------------------------------------- */
+
 body.path-mod-simplequiz2 #page.drawers .activity-header {
     margin: 0;
     padding: 0;
 }
+
 body.path-mod-simplequiz2 .activity-header:not(:empty) {
     background-color: #fff;
 }

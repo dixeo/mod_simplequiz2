@@ -274,11 +274,12 @@ define([], function() {
                 legend.insertAdjacentHTML('afterend', '<div class="header-info-container"></div>');
 
                 let legendContainer = questionHeader.querySelector('.header-info-container');
-                let title = questionHeader.querySelector('div.ftoggler');
 
-                // Move question text
+                // Move question preview below the collapse row (own block inside .header-info-container).
                 let questionText = questionHeader.querySelector('.header-questiontext');
-                title.appendChild(questionText);
+                if (questionText && legendContainer) {
+                    legendContainer.prepend(questionText);
+                }
 
                 // Move answers warning
                 let warnings = questionHeader.querySelectorAll('.error_not_enough_answers, .error_no_right_answer');

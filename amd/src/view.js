@@ -186,18 +186,22 @@ define(['jquery', 'core/modal_factory', 'core/str'], function($, ModalFactory, s
                 answers[i].disabled = true;
             }
 
-            // Display question status.
+            // Display question status (modifier class for styling: success / partial / fail).
+            const statusEl = document.querySelector('.question-status[data-questionid="' + questionId + '"]');
+            const statusModifierClasses = ['question-status-success', 'question-status-partial', 'question-status-fail'];
+            statusEl.classList.remove(...statusModifierClasses);
             let status = '';
             if (data.iscorrect === true) {
                 status = M.util.get_string('questionsuccess', 'mod_simplequiz2');
-                document.querySelector('.question-status[data-questionid="' + questionId + '"]').innerHTML = status;
+                statusEl.classList.add('question-status-success');
             } else if (data.iscorrect === false && hasCorrectAnswer === true) {
                 status = M.util.get_string('questionpartial', 'mod_simplequiz2');
-                document.querySelector('.question-status[data-questionid="' + questionId + '"]').innerHTML = status;
+                statusEl.classList.add('question-status-partial');
             } else {
                 status = M.util.get_string('questionfail', 'mod_simplequiz2');
-                document.querySelector('.question-status[data-questionid="' + questionId + '"]').innerHTML = status;
+                statusEl.classList.add('question-status-fail');
             }
+            statusEl.innerHTML = status;
 
             // Hide check button and display next question or restart button.
             let nextquestion = document.querySelector('.question-container[data-questionid="' + (parseInt(questionId) + 1) + '"]');
