@@ -463,6 +463,7 @@ function simplequiz2_pluginfile($course, $cm, $context, $filearea, $args, $force
 
     // Requires user logged in the course where image is displayed.
     require_course_login($course, true, $cm);
+    require_capability('mod/simplequiz2:view', $context);
 
     // Build the fullpath of the file before search it in DB.
     $itemid = $args[0];
