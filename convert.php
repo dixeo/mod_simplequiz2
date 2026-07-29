@@ -57,6 +57,10 @@ if (!$confirm) {
 
 require_sesskey();
 
+global $DB;
+
+$simplequiz = $DB->get_record('simplequiz2', ['id' => $cm->instance], '*', MUST_EXIST);
+
 try {
     // ELEA_RQM-234: change course format if course is singleactivity.
     if ($course->format == 'singleactivity') {
@@ -73,6 +77,15 @@ try {
     // Export current simplequiz to quiz.
     $export = new \mod_simplequiz2\export_to_quiz($cmid);
     $export->export_to_quiz();
+
+    $event = \mod_simplequiz2\event\quiz_conversion_completed::create_from_conversion(
+        $simplequiz,
+        $context,
+        $cm,
+        $export->get_quiz(),
+        $export->get_quiz_course_module()
+    );
+    $event->trigger();
 
     redirect(
         $returnurl,

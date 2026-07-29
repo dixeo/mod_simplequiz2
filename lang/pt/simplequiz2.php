@@ -97,3 +97,4 @@ $string['simplequiz2:view'] = 'Ver uma atividade QCM';
 $string['embed_finish'] = 'Sair do questionário';
 $string['embed_result_complete'] = 'Esta tentativa: {$a->score}/{$a->total} ({$a->percent} %)';
 $string['embed_result_best'] = 'Melhor pontuação: {$a->score}/{$a->total} ({$a->percent} %)';
+$string['eventquizconversioncompleted'] = 'QCM convertido em atividade Teste';

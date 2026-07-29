@@ -97,3 +97,4 @@ $string['simplequiz2:view'] = 'Simple-Quiz-Aktivität anzeigen';
 $string['embed_finish'] = 'Quiz verlassen';
 $string['embed_result_complete'] = 'Dieser Versuch: {$a->score}/{$a->total} ({$a->percent} %)';
 $string['embed_result_best'] = 'Beste Punktzahl: {$a->score}/{$a->total} ({$a->percent} %)';
+$string['eventquizconversioncompleted'] = 'MCQ in Test-Aktivität umgewandelt';

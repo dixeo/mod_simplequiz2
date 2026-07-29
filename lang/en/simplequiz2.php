@@ -98,3 +98,4 @@ $string['simplequiz2:view'] = 'View an MCQ activity';
 $string['embed_finish'] = 'Exit Quiz';
 $string['embed_result_complete'] = 'This attempt: {$a->score}/{$a->total} ({$a->percent}%)';
 $string['embed_result_best'] = 'Best score: {$a->score}/{$a->total} ({$a->percent}%)';
+$string['eventquizconversioncompleted'] = 'MCQ converted to Quiz activity';

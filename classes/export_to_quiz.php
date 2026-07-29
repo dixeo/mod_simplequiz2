@@ -191,6 +191,24 @@ class export_to_quiz {
     }
 
     /**
+     * Return the course module row of the quiz created by the last export.
+     *
+     * @return \stdClass
+     */
+    public function get_quiz_course_module(): \stdClass {
+        return $this->quizcm;
+    }
+
+    /**
+     * Return the quiz instance row created by the last export.
+     *
+     * @return \stdClass
+     */
+    public function get_quiz(): \stdClass {
+        return $this->quiz;
+    }
+
+    /**
      * Create a quiz
      *
      * @param stdClass $oldmod
