@@ -40,6 +40,7 @@ $string['completionminattempts:attempts'] = 'Lo studente deve completare o tenta
 $string['completionminattemptsdesc'] = 'Lo studente deve completare o tentare l\'attività {$a} volte';
 $string['completionminattemptsgroup'] = 'Numero minimo di tentativi';
 $string['convert_success'] = "Conversione effettuata con successo";
+$string['convertconfirm'] = 'Verrà creata una nuova attività Quiz da questo MCQ. Vuoi continuare?';
 $string['converttoquiz'] = 'Converti in attività Quiz';
 $string['deletealluserdata'] = 'Elimina tutti i tentativi MCQ';
 $string['deletequestion'] = "Elimina questa domanda";

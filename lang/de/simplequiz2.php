@@ -39,6 +39,7 @@ $string['completionminattempts:attempts'] = 'Die/der Lernende muss die Aktivitä
 $string['completionminattemptsdesc'] = 'Die/der Lernende muss die Aktivität {$a}-mal abschließen oder versuchen';
 $string['completionminattemptsgroup'] = 'Mindestanzahl Versuche';
 $string['convert_success'] = 'Konvertierung erfolgreich abgeschlossen';
+$string['convertconfirm'] = 'Dadurch wird aus dieser MCQ-Aktivität ein neuer Test erstellt. Möchten Sie fortfahren?';
 $string['converttoquiz'] = 'In Test-Aktivität umwandeln';
 $string['deletealluserdata'] = 'Alle Simple-Quiz-Versuche löschen';
 $string['deletequestion'] = 'Diese Frage löschen';

@@ -39,6 +39,7 @@ $string['completionminattempts:attempts'] = 'O formando deve completar ou tentar
 $string['completionminattemptsdesc'] = 'O formando deve completar ou tentar a atividade {$a} vezes.';
 $string['completionminattemptsgroup'] = 'Número mínimo de tentativas';
 $string['convert_success'] = 'Conversão concluída com sucesso';
+$string['convertconfirm'] = 'Será criada uma nova atividade Teste a partir deste QCM. Deseja continuar?';
 $string['converttoquiz'] = 'Converter em atividade Teste';
 $string['deletealluserdata'] = 'Eliminar todas as tentativas do QCM';
 $string['deletequestion'] = 'Eliminar esta pergunta';

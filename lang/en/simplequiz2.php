@@ -40,6 +40,7 @@ $string['completionminattempts:attempts'] = 'The student must complete or attemp
 $string['completionminattemptsdesc'] = 'The student must complete or attempt the activity {$a} times';
 $string['completionminattemptsgroup'] = 'Minimum number of attempts';
 $string['convert_success'] = "Conversion completed successfully";
+$string['convertconfirm'] = 'This will create a new Quiz activity from this MCQ. Do you want to continue?';
 $string['converttoquiz'] = 'Convert to Quiz activity';
 $string['deletealluserdata'] = 'Delete all MCQ attempts';
 $string['deletequestion'] = "Delete this question";

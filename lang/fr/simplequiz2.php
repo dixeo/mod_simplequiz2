@@ -40,6 +40,7 @@ $string['completionminattempts:attempts'] = 'L\'étudiant doit réussir l\'activ
 $string['completionminattemptsdesc'] = 'L\'étudiant doit réussir l\'activité ou la tenter {$a} fois';
 $string['completionminattemptsgroup'] = 'Nombre de tentatives minimum';
 $string['convert_success'] = "Conversion effectuée avec succès";
+$string['convertconfirm'] = 'Cela créera une nouvelle activité Test à partir de ce QCM. Voulez-vous continuer ?';
 $string['converttoquiz'] = 'Convertir en activité Test';
 $string['deletealluserdata'] = 'Supprimer toutes les tentatives des QCMs';
 $string['deletequestion'] = "Supprimer cette question";
