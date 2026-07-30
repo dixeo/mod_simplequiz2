@@ -151,13 +151,13 @@ define([
 
             let status = '';
             if (data.iscorrect === true) {
-                status = this.stringCache['questionsuccess'] || '';
+                status = this.stringCache.questionsuccess || '';
                 statusEl.classList.add('question-status-success');
             } else if (data.iscorrect === false && hasCorrectAnswer === true) {
-                status = this.stringCache['questionpartial'] || '';
+                status = this.stringCache.questionpartial || '';
                 statusEl.classList.add('question-status-partial');
             } else {
-                status = this.stringCache['questionfail'] || '';
+                status = this.stringCache.questionfail || '';
                 statusEl.classList.add('question-status-fail');
             }
             statusEl.innerHTML = status;
@@ -260,8 +260,8 @@ define([
 
             if (response.status == 401 || data.errorcode == 'requireloginerror') {
                 ModalSaveCancel.create({
-                    title: this.stringCache['session_expired_title'],
-                    body: this.stringCache['session_expired_body'],
+                    title: this.stringCache.session_expired_title,
+                    body: this.stringCache.session_expired_body,
                     show: true,
                     removeOnClose: true,
                 }).then(function(modal) {

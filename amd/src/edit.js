@@ -21,12 +21,14 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['mod_simplequiz2/editor_helpers', 'core/str', 'core/templates'], function(EditorHelpers, str, Templates) {
+define(['mod_simplequiz2/editor_helpers', 'core/str', 'core/templates', 'core/notification'],
+    function(EditorHelpers, str, Templates, Notification) {
 
     const STRING_KEYS = [
         'editquestion',
         'savequestion',
         'discardquestion',
+        'discardactivequestion',
         'deletequestion',
         'addquestion',
         'previewanswers',
@@ -347,8 +349,13 @@ define(['mod_simplequiz2/editor_helpers', 'core/str', 'core/templates'], functio
             const that = this;
 
             if (this.activeEditQuestionId !== null && this.activeEditQuestionId !== questionId) {
-                const discard = window.confirm('Discard unsaved changes on the current question?');
-                if (!discard) {
+                try {
+                    await Notification.saveCancelPromise(
+                        this.stringCache.discardquestion,
+                        this.stringCache.discardactivequestion,
+                        this.stringCache.discardquestion,
+                    );
+                } catch (cancelled) {
                     return;
                 }
                 await this.exitEditMode(this.activeEditQuestionId, true);
@@ -417,6 +424,9 @@ define(['mod_simplequiz2/editor_helpers', 'core/str', 'core/templates'], functio
                     that.exitEditMode(button.dataset.questionid, true).then(() => {
                         that.checkQuestionsAnswersWarnings(false);
                         that.updateQuestionsBackground([button.dataset.questionid]);
+                        return undefined;
+                    }).catch(() => {
+                        return undefined;
                     });
                 });
             });

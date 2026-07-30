@@ -33,7 +33,6 @@ require_once($CFG->libdir . '/phpunit/classes/restore_date_testcase.php');
  * @covers \restore_simplequiz2_activity_task
  */
 final class backup_restore_test extends \restore_date_testcase {
-
     /**
      * Combined feedback fields survive course backup and restore.
      */

@@ -93,10 +93,13 @@ define(['core/str', 'core/ajax'], function(str, ajax) {
         const questionCount = typeof config.questionCount === 'number'
             ? config.questionCount
             : (JSON.parse(questionsJson || '[]')).length;
-        const onAnswer = typeof config.onAnswer === 'function' ? config.onAnswer : function() {};
-        const onFinish = typeof config.onFinish === 'function' ? config.onFinish : function() {};
-        const onRestart = typeof config.onRestart === 'function' ? config.onRestart : function() {};
-        const onStateChange = typeof config.onStateChange === 'function' ? config.onStateChange : function() {};
+        const noop = function() {
+            return undefined;
+        };
+        const onAnswer = typeof config.onAnswer === 'function' ? config.onAnswer : noop;
+        const onFinish = typeof config.onFinish === 'function' ? config.onFinish : noop;
+        const onRestart = typeof config.onRestart === 'function' ? config.onRestart : noop;
+        const onStateChange = typeof config.onStateChange === 'function' ? config.onStateChange : noop;
         const initialState = config.initialState || null;
         const answerResults = [];
         const selectedByQuestion = [];
@@ -125,6 +128,7 @@ define(['core/str', 'core/ajax'], function(str, ajax) {
             stringKeys.forEach(function(key, i) {
                 strings[key] = loaded[i];
             });
+            return loaded;
         });
 
         /**
@@ -407,6 +411,9 @@ define(['core/str', 'core/ajax'], function(str, ajax) {
             finishBtn.style.display = 'none';
             loadStrings.then(function() {
                 finishBtn.textContent = strings.embed_finish || 'Exit Quiz';
+                return undefined;
+            }).catch(function() {
+                return undefined;
             });
             finishBtn.addEventListener('click', function() {
                 if (lastResult) {
@@ -506,6 +513,9 @@ define(['core/str', 'core/ajax'], function(str, ajax) {
                     }
 
                     emitStateChange();
+                    return undefined;
+                }).catch(function() {
+                    return undefined;
                 });
             });
         });
@@ -537,69 +547,89 @@ define(['core/str', 'core/ajax'], function(str, ajax) {
             });
         }
 
-        if (initialState) {
-            loadStrings.then(async function() {
-                const savedResults = initialState.answerResults || [];
-                const savedSelections = initialState.selectedAnswerIds || [];
-
-                for (let questionId = 0; questionId < savedResults.length; questionId++) {
-                    const correct = savedResults[questionId];
-                    if (typeof correct !== 'boolean') {
-                        continue;
-                    }
-                    const selectedIds = savedSelections[questionId] || [];
-                    selectedByQuestion[questionId] = selectedIds.slice();
-                    answerResults[questionId] = correct;
-                    const data = await checkQuestion(questionId, selectedIds);
-                    paintAnsweredQuestion(questionId, selectedIds, data);
+        const restoreSavedAnswers = async function(savedResults, savedSelections) {
+            for (let questionId = 0; questionId < savedResults.length; questionId++) {
+                const correct = savedResults[questionId];
+                if (typeof correct !== 'boolean') {
+                    continue;
                 }
+                const selectedIds = savedSelections[questionId] || [];
+                selectedByQuestion[questionId] = selectedIds.slice();
+                answerResults[questionId] = correct;
+                const data = await checkQuestion(questionId, selectedIds);
+                paintAnsweredQuestion(questionId, selectedIds, data);
+            }
+        };
 
-                currentQuestionIndex = typeof initialState.currentQuestionIndex === 'number'
-                    ? initialState.currentQuestionIndex
-                    : 0;
+        const restoreInitialResultsView = async function(score) {
+            const questionsContainer = root.querySelector('#simplequiz-questions');
+            const resultContainer = root.querySelector('#simplequiz-result');
+            if (questionsContainer) {
+                questionsContainer.style.display = 'none';
+            }
+            if (resultContainer) {
+                resultContainer.style.display = 'flex';
+            }
+            if (finishBtn) {
+                finishBtn.style.display = 'inline-block';
+            }
+            showingResults = true;
+            lastResult = {score: score, total: questionCount};
+            const bestScore = bestAttempt ? bestAttempt.score : score;
+            await renderEmbedResults(score, bestScore);
+        };
 
-                root.querySelectorAll('.question-container').forEach(function(q) {
-                    const qid = parseInt(q.dataset.questionid, 10);
-                    q.style.display = qid === currentQuestionIndex ? 'block' : 'none';
+        const maybeShowAllAnsweredButton = function(savedResults) {
+            const allAnswered = questionCount > 0 &&
+                savedResults.length >= questionCount &&
+                savedResults.every(function(v) {
+                    return typeof v === 'boolean';
                 });
+            const showBtn = root.querySelector('#simplequiz_container button.show-results');
+            if (allAnswered && showBtn) {
+                showBtn.style.display = 'block';
+            }
+        };
 
-                if (typeof savedResults[currentQuestionIndex] !== 'boolean') {
-                    paintPendingSelections(currentQuestionIndex, savedSelections[currentQuestionIndex] || []);
-                } else if (currentQuestionIndex + 1 < questionCount) {
-                    const nextBtn = root.querySelector(
-                        'button.next-question[data-questionid="' + currentQuestionIndex + '"]'
-                    );
-                    if (nextBtn) {
-                        nextBtn.style.display = 'block';
-                    }
-                }
+        const restoreInitialState = async function() {
+            const savedResults = initialState.answerResults || [];
+            const savedSelections = initialState.selectedAnswerIds || [];
 
-                if (initialState.showingResults) {
-                    const score = typeof initialState.score === 'number' ? initialState.score : 0;
-                    const questionsContainer = root.querySelector('#simplequiz-questions');
-                    const resultContainer = root.querySelector('#simplequiz-result');
-                    if (questionsContainer) {
-                        questionsContainer.style.display = 'none';
-                    }
-                    if (resultContainer) {
-                        resultContainer.style.display = 'flex';
-                    }
-                    if (finishBtn) {
-                        finishBtn.style.display = 'inline-block';
-                    }
-                    showingResults = true;
-                    lastResult = {score: score, total: questionCount};
-                    const bestScore = bestAttempt ? bestAttempt.score : score;
-                    await renderEmbedResults(score, bestScore);
-                } else {
-                    const allAnswered = questionCount > 0 &&
-                        savedResults.length >= questionCount &&
-                        savedResults.every(function(v) { return typeof v === 'boolean'; });
-                    const showBtn = root.querySelector('#simplequiz_container button.show-results');
-                    if (allAnswered && showBtn) {
-                        showBtn.style.display = 'block';
-                    }
+            await restoreSavedAnswers(savedResults, savedSelections);
+
+            currentQuestionIndex = typeof initialState.currentQuestionIndex === 'number'
+                ? initialState.currentQuestionIndex
+                : 0;
+
+            root.querySelectorAll('.question-container').forEach(function(q) {
+                const qid = parseInt(q.dataset.questionid, 10);
+                q.style.display = qid === currentQuestionIndex ? 'block' : 'none';
+            });
+
+            if (typeof savedResults[currentQuestionIndex] !== 'boolean') {
+                paintPendingSelections(currentQuestionIndex, savedSelections[currentQuestionIndex] || []);
+            } else if (currentQuestionIndex + 1 < questionCount) {
+                const nextBtn = root.querySelector(
+                    'button.next-question[data-questionid="' + currentQuestionIndex + '"]'
+                );
+                if (nextBtn) {
+                    nextBtn.style.display = 'block';
                 }
+            }
+
+            if (initialState.showingResults) {
+                const score = typeof initialState.score === 'number' ? initialState.score : 0;
+                await restoreInitialResultsView(score);
+            } else {
+                maybeShowAllAnsweredButton(savedResults);
+            }
+        };
+
+        if (initialState) {
+            loadStrings.then(function() {
+                return restoreInitialState();
+            }).catch(function() {
+                return undefined;
             });
         }
 

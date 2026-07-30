@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * External API: render ephemeral practice quiz player HTML.
  *
@@ -15,14 +30,13 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use mod_simplequiz2\player_service;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Render embed player markup for tutor practice quizzes.
  */
 class render_embed extends external_api {
-
     /**
+     * Describes the external function parameters.
+     *
      * @return external_function_parameters
      */
     public static function execute_parameters(): external_function_parameters {
@@ -34,6 +48,8 @@ class render_embed extends external_api {
     }
 
     /**
+     * Render ephemeral practice quiz player HTML.
+     *
      * @param int $courseid
      * @param string $questions
      * @param string $title
@@ -76,6 +92,8 @@ class render_embed extends external_api {
     }
 
     /**
+     * Describes the external function return values.
+     *
      * @return external_single_structure
      */
     public static function execute_returns(): external_single_structure {

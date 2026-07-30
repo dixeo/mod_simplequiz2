@@ -24,13 +24,10 @@
 
 namespace mod_simplequiz2\util;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Editor content utilities shared by PHP save logic and unit tests.
  */
 class editor_content {
-
     /**
      * Strip empty paragraph/break markup then trim (matches client-side edit.js logic).
      *

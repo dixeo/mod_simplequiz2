@@ -30,7 +30,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/lib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class lib_test extends \advanced_testcase {
-
     /**
      * Set up each test.
      */
@@ -41,6 +40,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * Plugin feature support flags.
+     *
+     * @covers ::simplequiz2_supports
      */
     public function test_simplequiz2_supports(): void {
         $this->assertTrue(simplequiz2_supports(FEATURE_BACKUP_MOODLE2));
@@ -51,6 +52,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * prepare_question_from_mod_form skips empty TinyMCE questions and answers.
+     *
+     * @covers ::simplequiz2_prepare_question_from_mod_form
      */
     public function test_prepare_question_from_mod_form_skips_empty_tinymce_markup(): void {
         $this->setAdminUser();
@@ -88,6 +91,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * prepare_question_from_mod_form keeps multiple non-empty questions in order.
+     *
+     * @covers ::simplequiz2_prepare_question_from_mod_form
      */
     public function test_prepare_question_from_mod_form_multiple_questions(): void {
         $this->setAdminUser();
@@ -143,6 +148,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * normalize_question adds empty feedback fields for legacy JSON.
+     *
+     * @covers ::simplequiz2_normalize_question
      */
     public function test_normalize_question_adds_empty_feedback(): void {
         $legacy = (object) [
@@ -157,6 +164,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * prepare_question_from_mod_form persists feedback fields.
+     *
+     * @covers ::simplequiz2_prepare_question_from_mod_form
      */
     public function test_prepare_question_from_mod_form_persists_feedback(): void {
         $this->setAdminUser();
@@ -208,6 +217,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * get_feedback_for_outcome returns correct branch and empty for legacy questions.
+     *
+     * @covers ::simplequiz2_get_feedback_for_outcome
      */
     public function test_get_feedback_for_outcome(): void {
         $this->setAdminUser();
@@ -265,6 +276,8 @@ final class lib_test extends \advanced_testcase {
 
     /**
      * Course reset form defaults enable attempt deletion.
+     *
+     * @covers ::simplequiz2_reset_course_form_defaults
      */
     public function test_reset_course_form_defaults(): void {
         $course = $this->getDataGenerator()->create_course();

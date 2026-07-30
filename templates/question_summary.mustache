@@ -29,6 +29,23 @@
     * hasfeedback - bool
     * feedbackheading - string
     * feedbackitems - array of {label, text}
+
+    Example context (json):
+    {
+        "hasquestion": true,
+        "questiontext": "What is 2+2?",
+        "hasanswers": true,
+        "answerheading": "Answers",
+        "answers": [
+            {"text": "4", "iscorrect": true},
+            {"text": "5", "iscorrect": false}
+        ],
+        "hasfeedback": true,
+        "feedbackheading": "Feedback",
+        "feedbackitems": [
+            {"label": "Correct", "text": "Well done!"}
+        ]
+    }
 }}
 {{#hasquestion}}
 <div class="simplequiz2-summary-question"><strong>{{{questiontext}}}</strong></div>

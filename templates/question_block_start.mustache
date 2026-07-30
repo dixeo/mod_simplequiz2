@@ -28,6 +28,30 @@
     * buttons - Toolbar button contexts
     * errornotenough - Not enough answers error string
     * errornoright - No correct answer error string
+    * lintclosure - bool, close open wrappers when linting this partial alone
+
+    Example context (json):
+    {
+        "questionid": 0,
+        "title": "Question 1",
+        "hascontent": true,
+        "summaryhtml": "<div class=\"simplequiz2-summary-question\"><strong>Sample question</strong></div>",
+        "buttons": [
+            {
+                "class": "edit-question",
+                "icon": "fa-pencil",
+                "label": "Edit question",
+                "questionid": 0,
+                "hidden": false,
+                "showlabel": false,
+                "icononly": true,
+                "attrs": []
+            }
+        ],
+        "errornotenough": "Questions must have at least two answers.",
+        "errornoright": "Questions must have at least one correct answer.",
+        "lintclosure": true
+    }
 }}
 <div class="simplequiz2-question-block-start" data-simplequiz2-block-start="{{questionid}}" data-questionid="{{questionid}}">
     <div class="simplequiz2-question-chrome">
@@ -43,3 +67,7 @@
         <div class="error_no_right_answer alert alert-danger">{{errornoright}}</div>
     </div>
     <div class="simplequiz2-question-editors d-none">
+{{#lintclosure}}
+    </div>
+</div>
+{{/lintclosure}}

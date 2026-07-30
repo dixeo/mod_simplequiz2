@@ -26,7 +26,6 @@ namespace mod_simplequiz2\completion;
  * @covers \mod_simplequiz2\completion\custom_completion
  */
 final class custom_completion_test extends \advanced_testcase {
-
     /**
      * Set up.
      */

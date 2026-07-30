@@ -35,7 +35,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/lib.php');
  * @category   test
  */
 class mod_simplequiz2_generator extends testing_module_generator {
-
     /**
      * Build a minimal questions JSON payload for tests.
      *
@@ -59,6 +58,8 @@ class mod_simplequiz2_generator extends testing_module_generator {
     }
 
     /**
+     * Create a simplequiz2 module instance for tests.
+     *
      * @param stdClass|array|null $record
      * @param array|null $options
      * @return stdClass

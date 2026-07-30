@@ -682,8 +682,10 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
         }
 
         $question->correctfeedback = '';
-        if (!empty($questionrawdata['correctfeedback'])
-                && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['correctfeedback']['text'] ?? '')) {
+        if (
+            !empty($questionrawdata['correctfeedback'])
+            && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['correctfeedback']['text'] ?? '')
+        ) {
             $question->correctfeedback = simplequiz2_save_editor_files(
                 $context->id,
                 simplequiz2_correct_feedback_itemid($questionitemid),
@@ -692,8 +694,10 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
         }
 
         $question->partiallycorrectfeedback = '';
-        if (!empty($questionrawdata['partiallycorrectfeedback'])
-                && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['partiallycorrectfeedback']['text'] ?? '')) {
+        if (
+            !empty($questionrawdata['partiallycorrectfeedback'])
+            && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['partiallycorrectfeedback']['text'] ?? '')
+        ) {
             $question->partiallycorrectfeedback = simplequiz2_save_editor_files(
                 $context->id,
                 simplequiz2_partiallycorrect_feedback_itemid($questionitemid),
@@ -702,8 +706,10 @@ function simplequiz2_prepare_question_from_mod_form(int $cmid, $data) {
         }
 
         $question->incorrectfeedback = '';
-        if (!empty($questionrawdata['incorrectfeedback'])
-                && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['incorrectfeedback']['text'] ?? '')) {
+        if (
+            !empty($questionrawdata['incorrectfeedback'])
+            && !\mod_simplequiz2\util\editor_content::is_empty($questionrawdata['incorrectfeedback']['text'] ?? '')
+        ) {
             $question->incorrectfeedback = simplequiz2_save_editor_files(
                 $context->id,
                 simplequiz2_incorrect_feedback_itemid($questionitemid),

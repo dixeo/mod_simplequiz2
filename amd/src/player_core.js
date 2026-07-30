@@ -158,7 +158,7 @@ define(['core/str'], function(str) {
          */
         findMetaData: function(elem) {
             if (!elem) {
-                return this.stringCache['aria_no_description'] || '';
+                return this.stringCache.aria_no_description || '';
             }
             if (elem.title !== '') {
                 return elem.title;
@@ -166,7 +166,7 @@ define(['core/str'], function(str) {
             if (elem.getAttribute('alt') !== '' && elem.getAttribute('alt') !== null) {
                 return elem.getAttribute('alt');
             }
-            return this.stringCache['aria_no_description'] || '';
+            return this.stringCache.aria_no_description || '';
         },
     };
 

@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * Shared player preparation and rendering for activity and embed modes.
  *
@@ -18,7 +33,6 @@ require_once($CFG->dirroot . '/mod/simplequiz2/lib.php');
  * Prepares question data and renders the student player template.
  */
 class player_service {
-
     /**
      * Prepare question objects for Mustache (shuffle answers, set order flags).
      * Strips iscorrect from answer objects so it is not exposed in HTML.

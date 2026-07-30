@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * External API: allocate fresh user draft item ids for deferred editors.
  *
@@ -17,14 +32,16 @@ use core_external\external_value;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/filelib.php');
+global $CFG;
+require_once($CFG->libdir . '/filelib.php');
 
 /**
  * Return unused draft item ids for resetting question editor fields client-side.
  */
 class get_unused_draft_itemids extends external_api {
-
     /**
+     * Describes the external function parameters.
+     *
      * @return external_function_parameters
      */
     public static function execute_parameters(): external_function_parameters {
@@ -32,6 +49,8 @@ class get_unused_draft_itemids extends external_api {
     }
 
     /**
+     * Allocate a fresh draft item id for editor fields.
+     *
      * @return array
      */
     public static function execute(): array {
@@ -48,6 +67,8 @@ class get_unused_draft_itemids extends external_api {
     }
 
     /**
+     * Describes the external function return values.
+     *
      * @return external_single_structure
      */
     public static function execute_returns(): external_single_structure {

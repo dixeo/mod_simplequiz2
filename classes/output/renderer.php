@@ -24,8 +24,6 @@
 
 namespace mod_simplequiz2\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 use mod_simplequiz2\player_service;
 
 /**

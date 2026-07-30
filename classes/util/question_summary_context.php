@@ -16,8 +16,6 @@
 
 namespace mod_simplequiz2\util;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Build Mustache context for mod_simplequiz2/question_summary.
  *
@@ -26,7 +24,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class question_summary_context {
-
     /**
      * Whether a question slot has any stored content (text, answers, or feedback).
      *

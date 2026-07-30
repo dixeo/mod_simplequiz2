@@ -16,8 +16,6 @@
 
 namespace mod_simplequiz2\util;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Mustache context builders for the mod_simplequiz2 edit form templates.
  *
@@ -26,7 +24,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class edit_form_context {
-
     /**
      * Context for mod_simplequiz2/question_block_start.
      *

@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * External API: grade one embed/practice quiz question server-side.
  *
@@ -18,14 +33,16 @@ use mod_simplequiz2\question_grading_service;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->dirroot . '/mod/simplequiz2/lib.php');
+global $CFG;
+require_once($CFG->dirroot . '/mod/simplequiz2/lib.php');
 
 /**
  * Check answers for an ephemeral embed quiz question.
  */
 class check_embed_question extends external_api {
-
     /**
+     * Describes the external function parameters.
+     *
      * @return external_function_parameters
      */
     public static function execute_parameters(): external_function_parameters {
@@ -38,6 +55,8 @@ class check_embed_question extends external_api {
     }
 
     /**
+     * Grade one embed quiz question server-side.
+     *
      * @param int $courseid
      * @param string $questions
      * @param int $questionid
@@ -90,6 +109,8 @@ class check_embed_question extends external_api {
     }
 
     /**
+     * Describes the external function return values.
+     *
      * @return external_single_structure
      */
     public static function execute_returns(): external_single_structure {

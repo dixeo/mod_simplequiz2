@@ -107,7 +107,6 @@
 #page-mod-simplequiz2-mod form.mform .simplequiz2-summary-check {
     flex-shrink: 0;
     margin-left: -16px;
-    color: #28a745;
     color: var(--success, #28a745);
     font-weight: bold;
 }
@@ -129,6 +128,7 @@
 #page-mod-simplequiz2-mod form.mform .fitem:has(input[id*="_correctanswers_"]),
 #page-mod-simplequiz2-mod form.mform .fitem:has(input[name*="questions"][name$="[format]"]),
 #page-mod-simplequiz2-mod form.mform .fitem:has(input[name*="questions"][name$="[itemid]"]) {
+    /* stylelint-disable-next-line declaration-no-important -- must override Moodle form fitem display rules */
     display: none !important;
 }
 
@@ -162,6 +162,7 @@
 }
 
 #page-mod-simplequiz2-mod form.mform .simplequiz2-question-editors:not(.d-none) .simplequiz2-editor-fitem {
+    /* stylelint-disable-next-line declaration-no-important -- must override deferred-editor hide rules */
     display: flex !important;
     width: 100%;
 }
@@ -177,6 +178,7 @@
     margin-bottom: 0;
 }
 
+/* stylelint-disable-next-line max-line-length */
 #page-mod-simplequiz2-mod form.mform .simplequiz2-answer-group > .fitem:has(input[id*="_correctanswers_"]) .col-md-3:not(.col-form-label) {
     flex: 0 0 auto;
     width: auto;
@@ -226,9 +228,7 @@
 }
 
 #page-mod-simplequiz2-mod form.mform .simplequiz2-edit-toolbar .simplequiz2-btn-save {
-    background-color: #28a745;
     background-color: var(--success, #28a745);
-    border-color: #28a745;
     border-color: var(--success, #28a745);
     color: #fff;
 }
@@ -252,13 +252,12 @@
 }
 
 #page-mod-simplequiz2-mod form.mform .simplequiz2-edit-toolbar .delete-simplequestion:hover:not(:disabled) {
-    background-color: #dc3545;
     background-color: var(--danger, #dc3545);
-    border-color: #dc3545;
     border-color: var(--danger, #dc3545);
     color: #fff;
 }
 
+/* stylelint-disable-next-line max-line-length */
 #page-mod-simplequiz2-mod form.mform .simplequiz2-edit-toolbar .simplequiz2-toolbar-btn--icon-only:hover:not(:disabled):not(.delete-simplequestion) {
     background-color: #f8f9fa;
     border-color: #adb5bd;
@@ -360,12 +359,14 @@
     margin-top: 12px;
 }
 
+/* stylelint-disable max-line-length */
 .simplequiz2-embed.simplequiz2-player #simplequiz_container #simplequiz-result #details .simplequiz2-embed__result-actions button.restart,
 .simplequiz2-embed.simplequiz2-player #simplequiz_container #simplequiz-result #details .simplequiz2-embed__result-actions button.finish-embed {
     display: block;
     width: 100%;
     margin: 0;
 }
+/* stylelint-enable max-line-length */
 
 .simplequiz2-embed.simplequiz2-player #simplequiz_container #simplequiz-result #details .current-score {
     margin-bottom: 8px;
@@ -469,7 +470,6 @@
 .simplequiz2-player #simplequiz_container .question-text .question-rank {
     display: block;
     font-size: 1.5rem;
-    color: #108df0;
     color: var(--primary, #108df0);
 }
 
@@ -499,17 +499,14 @@
 }
 
 .simplequiz2-player #simplequiz_container .question-status.question-status-success {
-    color: #28a745;
     color: var(--success, #28a745);
 }
 
 .simplequiz2-player #simplequiz_container .question-status.question-status-partial {
-    color: #f0ad4e;
     color: var(--warning, #f0ad4e);
 }
 
 .simplequiz2-player #simplequiz_container .question-status.question-status-fail {
-    color: #dc3545;
     color: var(--danger, #dc3545);
 }
 
@@ -538,9 +535,7 @@
 .simplequiz2-player #simplequiz_container .answer-container.selected,
 .simplequiz2-player #simplequiz_container .answer-container.selected p {
     font-weight: bold;
-    color: #108df0;
     color: var(--primary, #108df0);
-    border-color: #108df0;
     border-color: var(--primary, #108df0);
     background-color: #dedede;
 }
@@ -583,9 +578,7 @@
 .simplequiz2-player #simplequiz_container .answer-container.question-success,
 .simplequiz2-player #simplequiz_container .answer-container.question-success p {
     color: white;
-    background-color: #28a745;
     background-color: var(--success, #28a745);
-    border-color: #28a745;
     border-color: var(--success, #28a745);
     font-weight: bold;
 }
@@ -600,9 +593,7 @@
 .simplequiz2-player #simplequiz_container .answer-container.question-fail,
 .simplequiz2-player #simplequiz_container .answer-container.question-fail p {
     color: white;
-    background-color: #dc3545;
     background-color: var(--danger, #dc3545);
-    border-color: #dc3545;
     border-color: var(--danger, #dc3545);
     font-weight: bold;
 }
@@ -631,7 +622,6 @@
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    background-color: #108df0;
     background-color: var(--primary, #108df0);
 }
 

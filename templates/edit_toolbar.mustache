@@ -23,6 +23,23 @@
     Context variables:
     * questionid - Question index
     * buttons - array of button contexts for edit_toolbar_button partial
+
+    Example context (json):
+    {
+        "questionid": 0,
+        "buttons": [
+            {
+                "class": "edit-question",
+                "icon": "fa-pencil",
+                "label": "Edit question",
+                "questionid": 0,
+                "hidden": false,
+                "showlabel": false,
+                "icononly": true,
+                "attrs": []
+            }
+        ]
+    }
 }}
 <div class="simplequiz2-edit-toolbar" data-questionid="{{questionid}}">
     {{#buttons}}

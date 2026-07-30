@@ -26,8 +26,9 @@ namespace mod_simplequiz2\util;
  * @covers \mod_simplequiz2\util\editor_content
  */
 final class editor_content_test extends \advanced_testcase {
-
     /**
+     * Assert is_empty() matches the expected value for sample HTML.
+     *
      * @dataProvider empty_html_provider
      * @param string|null $html
      * @param bool $expected
@@ -37,6 +38,8 @@ final class editor_content_test extends \advanced_testcase {
     }
 
     /**
+     * Data provider for empty HTML detection cases.
+     *
      * @return array
      */
     public static function empty_html_provider(): array {

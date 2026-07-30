@@ -23,6 +23,7 @@ namespace mod_simplequiz2;
  * @category   test
  * @copyright  2026 Edunao SAS (contact@edunao.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @coversNothing
  */
 final class convert_csrf_test extends \advanced_testcase {
     /**

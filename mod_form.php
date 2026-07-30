@@ -169,7 +169,9 @@ class mod_simplequiz2_mod_form extends moodleform_mod {
             $partiallycorrectfeedback = '';
             $incorrectfeedback = '';
             if (isset($questionsdata[$i])) {
-                $hascontent              = \mod_simplequiz2\util\question_summary_context::question_slot_has_content($questionsdata[$i]);
+                $hascontent = \mod_simplequiz2\util\question_summary_context::question_slot_has_content(
+                    $questionsdata[$i]
+                );
                 $questiontext            = $questionsdata[$i]->text;
                 $correctfeedback         = $questionsdata[$i]->correctfeedback;
                 $partiallycorrectfeedback = $questionsdata[$i]->partiallycorrectfeedback;

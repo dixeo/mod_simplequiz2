@@ -172,7 +172,8 @@ define([
         }
         const inst = Tiny.getInstanceForElement(textarea);
         const refInst = getReferenceEditor(textarea);
-        return {
+        const extendedElementsKey = 'extended_valid_elements';
+        const setupOptions = {
             css: tinyBaseOptions.css,
             context: inst ? Options.getContextId(inst) : tinyBaseOptions.context,
             draftitemid: getDraftItemIdFromForm(textarea),
@@ -182,8 +183,9 @@ define([
             placeholderSelectors: [],
             plugins: tinyBaseOptions.plugins,
             branding: tinyBaseOptions.branding !== undefined ? tinyBaseOptions.branding : true,
-            extended_valid_elements: tinyBaseOptions.extended_valid_elements || 'script[*],p[*],i[*]',
         };
+        setupOptions[extendedElementsKey] = tinyBaseOptions[extendedElementsKey] || 'script[*],p[*],i[*]';
+        return setupOptions;
     };
 
     /**
