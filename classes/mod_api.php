@@ -90,6 +90,22 @@ abstract class mod_api {
     }
 
     /**
+     * Actions the AJAX dispatcher may invoke.
+     *
+     * Subclasses may override to extend the list. Names must match protected
+     * handler methods on the concrete controller; never include run or other
+     * infrastructure methods.
+     *
+     * @return string[]
+     */
+    protected function get_allowed_actions(): array {
+        return [
+            'check_question',
+            'get_attempt_results',
+        ];
+    }
+
+    /**
      * Set $this->action and return error if it's impossible.
      *
      * @param string|null $action The mod controller method name to run.
@@ -100,6 +116,8 @@ abstract class mod_api {
             $this->send(400, 'Bad request : action required.');
         } else if ($action === '') {
             $this->send(400, 'Bad request : action value is not valid.');
+        } else if (!in_array((string) $action, $this->get_allowed_actions(), true)) {
+            $this->send(405, 'Bad request : unknown action ' . $action . '.');
         } else {
             $this->action = $action;
         }
@@ -143,6 +161,11 @@ abstract class mod_api {
      * @return void
      */
     public function run() {
+        // Defense in depth: never dispatch without an allowlisted action.
+        if ($this->action === '' || !in_array($this->action, $this->get_allowed_actions(), true)) {
+            $this->send(405, 'Bad request : unknown action ' . $this->action . '.');
+        }
+
         call_user_func([
             $this,
             $this->action,
